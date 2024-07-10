@@ -1,5 +1,38 @@
 .sideBar {
-    width: 20.833vw;
-    height: 100vh;
+    /* width: 20.833vw; */
+    /* width: 19.79134vw; */
+    width: 19.687168vw;
+    height: 97.6268vh;
+    padding: 1.1866vh 0.572916vw;
     background-color: #3F3F3F;
+    display: flex;
+    flex-direction: column;
+}
+
+.sideBar_header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.menu_btn {
+    margin: 1.29449vh 0.8vw 0;
+    min-width: 35px;
+}
+
+.sideBar_search {
+    /* width: 16.14583vw; */
+    /* width: 12.5vw; */
+    width: 12vw;
+    height: 5.3937vh;
+    padding: 0 0.52083vw 0 3.125vw;
+    border-radius: 100px;
+    border: 1px solid #CACACA;
+    background-color: transparent;
+    outline: none;
+    font-size: 1.25vw;
+    color: white;
+    background-image: url('../../assets/Search.svg');
+    background-repeat: no-repeat;
+    background-position: 10px;
 }

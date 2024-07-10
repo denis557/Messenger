@@ -1,5 +1,5 @@
 import socketIO from 'socket.io-client'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 import Main from '../pages/main/main';
 import Login from '../pages/login/login';
 import Signup from '../pages/signup/signup';

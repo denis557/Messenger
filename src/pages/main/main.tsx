@@ -5,9 +5,6 @@ import Chat from '../../components/chat/chat';
 import { useParams } from 'react-router-dom';
 
 function Main() {
-  const id = useParams();
-  console.log(id);
-
   return(
     <>
       <SideBar />
