@@ -1,16 +1,20 @@
 import socketIO from 'socket.io-client'
-import { Route, Routes } from 'react-router-dom'
-import Chat from '../pages/chat/chat';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Main from '../pages/main/main';
+import Login from '../pages/login/login';
+import Signup from '../pages/signup/signup';
 import './App.css'
 const socket = socketIO('http://localhost:5000');
 
 function App() {
   return (
-    <Routes>
-      <Route path='/' element={<Chat />}></Route>
-      {/* <Route path='/login'></Route>
-      <Route path='/signup'></Route> */}
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
