@@ -1,8 +1,11 @@
+const authRouter = require('./routes/authRoutes')
+
 require('dotenv').config({ path: __dirname+'/.env' });
+
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const http =  require('http').Server(app);
 const cors = require('cors');
@@ -22,15 +25,11 @@ db.once('open', () => {
     })
 })
 
-app.get('api', (req, res) => {
-    res.json({
-        message: 'server connected'
-    })
-})
-
 socketIO.on('connection', (socket) => {
     console.log(`${socket.id} connected`);
     socket.on('disconnect', () => {
         console.log(`${socket.id} user disconnected`)
     })
 })
+
+app.use('/auth', authRouter);
