@@ -17,12 +17,11 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    opacity: 0;
-    transition: all 0.4s ease-in-out;
+    visibility: hidden;
 }
 
 .signup_body.active {
-    opacity: 1;
+    visibility: visible;
 }
 
 .auth_title {
@@ -43,10 +42,7 @@
     min-height: 100px;
     min-width: 100px;
     border-radius: 500px;
-    background-image: url('../../assets/Add.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #E9E9E9;
+    background: url('../../assets/Picture.svg') no-repeat center center, linear-gradient(to bottom right, #5E01D6, #FEC8FF);
     margin: 1.61812vh 0 5.39374vh;
 }
 
@@ -75,6 +71,7 @@
     background-color: #E29EFF;
     border: none;
     align-self: flex-end;
+    margin-left: auto;
     margin-right: 1.0416vw;
 }
 
@@ -85,7 +82,14 @@
 
 .auth_link {
     font-size: 1.35416vw;
-    margin-top: 1.6181vh;
+    /* margin-top: 1.6181vh; */
+    margin-top: 63vh;
     color: #fff;
     text-decoration: none;
+}
+
+.auth_btn_div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
 }

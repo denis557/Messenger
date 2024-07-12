@@ -37,5 +37,5 @@ socketIO.on('connection', (socket) => {
     })
 })
 
-app.use('/auth', authRouter);
-app.use('/message', messageRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/message', messageRouter);
