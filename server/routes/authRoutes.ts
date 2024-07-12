@@ -1,5 +1,5 @@
 export {};
-const { signup, login, logout } = require('../controllers/auth');
+const { signup, login, logout } = require('../controllers/authController');
 const express = require('express');
 
 const router = express.Router();

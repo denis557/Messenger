@@ -1,9 +1,11 @@
-const authRouter = require('./routes/authRoutes')
+const authRouter = require('./routes/authRoutes');
+const messageRouter = require('./routes/messageRouter');
 
 require('dotenv').config({ path: __dirname+'/.env' });
 
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -16,6 +18,7 @@ const socketIO = require('socket.io')(http, {
 });
 
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect(process.env.MONGO_URL!);
 const db = mongoose.connection;
@@ -35,3 +38,4 @@ socketIO.on('connection', (socket) => {
 })
 
 app.use('/auth', authRouter);
+app.use('/message', messageRouter);
