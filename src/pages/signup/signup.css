@@ -10,13 +10,23 @@
 
 .signup_body {
     width: 31.25vw;
-    height: 50.70118vh;
     padding: 2.157497vh 0;
+    position: absolute;
     border-radius: 0.52083vw;
     background-color: #fff;
     display: flex;
     align-items: center;
     flex-direction: column;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+}
+
+.signup_body.active {
+    opacity: 1;
+}
+
+.auth_title {
+    margin-bottom: 5.39374vh;
 }
 
 .signup_body h1 {
@@ -42,15 +52,40 @@
 
 .text_input {
     width: 78.33%;
-    height: 4.3149vh;
-    border: none;
-    border-bottom: 1px solid #5E00D6;
+    height: 3.7849vh;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-image: linear-gradient(to right, #5E00D6, #F6BCFF) 1;
     font-size: 1.35416vw;
     outline: none;
-    padding: 0 2.5%;
+    padding: 0 2.5% 0.53vh;
     margin-bottom: 4.314994vh;
 }
 
 .text_input::placeholder {
     color: #BDBDBD;
+}
+
+.auth_btn {
+    width: 3.697916vw;
+    height: 3.697916vw;
+    min-width: 61px;
+    min-height: 61px;
+    border-radius: 500px;
+    background-color: #E29EFF;
+    border: none;
+    align-self: flex-end;
+    margin-right: 1.0416vw;
+}
+
+.auth_btn.prev {
+    align-self: flex-start;
+    margin-left: 1.0416vw;
+}
+
+.auth_link {
+    font-size: 1.35416vw;
+    margin-top: 1.6181vh;
+    color: #fff;
+    text-decoration: none;
 }
