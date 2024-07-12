@@ -1,0 +1,56 @@
+.auth_bg {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #5E00D6, #FEC8FF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.signup_body {
+    width: 31.25vw;
+    height: 50.70118vh;
+    padding: 2.157497vh 0;
+    border-radius: 0.52083vw;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signup_body h1 {
+    text-align: center;
+}
+
+#file_input {
+    display: none;
+}
+
+.signup_body label {
+    width: 7.29166vw;
+    height: 7.29166vw;
+    min-height: 100px;
+    min-width: 100px;
+    border-radius: 500px;
+    background-image: url('../../assets/Add.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #E9E9E9;
+    margin: 1.61812vh 0 5.39374vh;
+}
+
+.text_input {
+    width: 78.33%;
+    height: 4.3149vh;
+    border: none;
+    border-bottom: 1px solid #5E00D6;
+    font-size: 1.35416vw;
+    outline: none;
+    padding: 0 2.5%;
+    margin-bottom: 4.314994vh;
+}
+
+.text_input::placeholder {
+    color: #BDBDBD;
+}
