@@ -93,3 +93,9 @@
     display: flex;
     flex-direction: row;
 }
+
+.error {
+    color: #F34848;
+    font-size: 1.3vw;
+    margin-top: 2vh;
+}

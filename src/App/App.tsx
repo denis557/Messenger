@@ -1,18 +1,28 @@
 import socketIO from 'socket.io-client'
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Main from '../pages/main/main';
 import Login from '../pages/login/login';
 import Signup from '../pages/signup/signup';
 import './App.css'
+import { useEffect, useState } from 'react';
 const socket = socketIO('http://localhost:5000');
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user-threads');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Main />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/' element={user ? <Main /> : <Navigate to='/signup' />} />
+        <Route path='/login' element={!user ? <Login onLogin={(user: any) => setUser(user)} /> : <Navigate to='/' />} />
+        <Route path='/signup' element={!user ? <Signup onSignup={(user: any) => setUser(user)} /> : <Navigate to='/' />} />
       </Routes>
     </BrowserRouter>
   )

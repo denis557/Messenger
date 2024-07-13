@@ -2,11 +2,12 @@ import './signup.css'
 import { Next } from '../../assets/Next.tsx'
 import { Prev } from '../../assets/Prev.tsx'
 import { Finish } from '../../assets/Finish.tsx'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
-function Signup() {
+function Signup({ onSignup }: any) {
     const [slideIndex, setSlideIndex] = useState(0);
+    const [error, setError] = useState('');
     const [inputs, setInputs] = useState({
         name: '',
         bio: '',
@@ -14,6 +15,8 @@ function Signup() {
         password: '',
         username: ''
     });
+
+    const navigate = useNavigate()
 
     const handleSignup = async () => {
         try {
@@ -25,8 +28,15 @@ function Signup() {
                 body: JSON.stringify(inputs)
             })
             const data = await res.json();
+
+            if(data.error) {
+                setError(data.message);
+                return
+            }
             
-            localStorage.setItem('user-threads', JSON.stringify(data))
+            localStorage.setItem('user-threads', JSON.stringify(data));
+            onSignup(data);
+            // navigate('/');
         } catch (error) {
             console.log(error)
         }
@@ -38,17 +48,18 @@ function Signup() {
                 <h1>About you</h1>
                 <input type='file' id='file_input' />
                 <label htmlFor='file_input'></label>
-                <input type='text' className='text_input' placeholder='Enter your name' onChange={e => setInputs({ ...inputs, name: e.target.value})} />
-                <input type='text' className='text_input' placeholder='Tell about you' onChange={e => setInputs({ ...inputs, bio: e.target.value})} />
+                <input type='text' className='text_input' placeholder='Enter your name' value={inputs.name} onChange={e => setInputs({ ...inputs, name: e.target.value})} />
+                <input type='text' className='text_input' placeholder='Tell about you(optional)' value={inputs.bio} onChange={e => setInputs({ ...inputs, bio: e.target.value})} />
                 <button className='auth_btn' onClick={() => setSlideIndex(1)}>
                     <Next />
                 </button>
+                <p className='error'>{error}</p>
             </div>
             <div className={`signup_body ${slideIndex === 1 && 'active'}`}>
                 <h1 className='auth_title'>Create account</h1>
-                <input type='email' className='text_input' placeholder='Email' onChange={e => setInputs({ ...inputs, email: e.target.value})} />
-                <input type='password' className='text_input' placeholder='Password' onChange={e => setInputs({ ...inputs, password: e.target.value})} />
-                <input type='text' className='text_input' placeholder='Username' onChange={e => setInputs({ ...inputs, username: e.target.value})} />
+                <input type='email' className='text_input' placeholder='Email' value={inputs.email} onChange={e => setInputs({ ...inputs, email: e.target.value})} />
+                <input type='password' className='text_input' placeholder='Password' value={inputs.password} onChange={e => setInputs({ ...inputs, password: e.target.value})} />
+                <input type='text' className='text_input' placeholder='Username' value={inputs.username} onChange={e => setInputs({ ...inputs, username: e.target.value})} />
                 <div className='auth_btn_div'>
                     <button className='auth_btn prev' onClick={() => setSlideIndex(0)}>
                         <Prev />
@@ -57,6 +68,7 @@ function Signup() {
                         <Finish />
                     </button>
                 </div>
+                <p className='error'>{error}</p>
             </div>
             <Link to='/login' className='auth_link'>Already have an account? Login</Link>
         </div>

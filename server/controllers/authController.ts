@@ -7,6 +7,10 @@ const signup = async (req, res) => {
         const { name, email, password, username, bio } = req.body;
         const user = await User.findOne({$or:[{email}, {username}]});
 
+        if(!name || !email || !password || !username) {
+            return res.status(400).json({ error: true, message: 'Fill required fields!'});
+        }
+
         if(user) {
             return res.status(400).json({error: true, message: 'User with this email or username already exists'});
         }
@@ -28,7 +32,6 @@ const signup = async (req, res) => {
             generateJwtAndSetCookie(newUser._id, res);
             return res.status(201).json({
                 newUser,
-                _id: newUser._id,
             })
         } else {
             return res.status(400).json({ error: true, message: 'Invalid user data'});
