@@ -2,12 +2,14 @@ import './signup.css'
 import { Next } from '../../assets/Next.tsx'
 import { Prev } from '../../assets/Prev.tsx'
 import { Finish } from '../../assets/Finish.tsx'
+import { Eye } from '../../assets/Eye.tsx'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 function Signup({ onSignup }: any) {
     const [slideIndex, setSlideIndex] = useState(0);
     const [error, setError] = useState('');
+    const [isShowPassword, setIsShowPassword] = useState(false);
     const [inputs, setInputs] = useState({
         name: '',
         bio: '',
@@ -53,12 +55,15 @@ function Signup({ onSignup }: any) {
                 <button className='auth_btn' onClick={() => setSlideIndex(1)}>
                     <Next />
                 </button>
-                <p className='error'>{error}</p>
+                {error && <p className='error'>{error}</p>}
             </div>
             <div className={`signup_body ${slideIndex === 1 && 'active'}`}>
                 <h1 className='auth_title'>Create account</h1>
                 <input type='email' className='text_input' placeholder='Email' value={inputs.email} onChange={e => setInputs({ ...inputs, email: e.target.value})} />
-                <input type='password' className='text_input' placeholder='Password' value={inputs.password} onChange={e => setInputs({ ...inputs, password: e.target.value})} />
+                <div className='text_input_div'>
+                    <input type={isShowPassword ? 'text' : 'password'} className='password_input' placeholder='Password' value={inputs.password} onChange={e => setInputs({ ...inputs, password: e.target.value})} />
+                    <Eye isShowPassword={isShowPassword} setIsShowPassword={setIsShowPassword} />
+                </div>
                 <input type='text' className='text_input' placeholder='Username' value={inputs.username} onChange={e => setInputs({ ...inputs, username: e.target.value})} />
                 <div className='auth_btn_div'>
                     <button className='auth_btn prev' onClick={() => setSlideIndex(0)}>
@@ -68,7 +73,7 @@ function Signup({ onSignup }: any) {
                         <Finish />
                     </button>
                 </div>
-                <p className='error'>{error}</p>
+                {error && <p className='error'>{error}</p>}
             </div>
             <Link to='/login' className='auth_link'>Already have an account? Login</Link>
         </div>

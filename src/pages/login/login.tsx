@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../signup/signup.css'
 import { Finish } from '../../assets/Finish.tsx'
+import { Eye } from '../../assets/Eye.tsx'
 
 function Login({ onLogin }: any) {
     const [error, setError] = useState('');
+    const [isShowPassword, setIsShowPassword] = useState(false);
     const [inputs, setInputs] = useState({
         email: '',
         password: ''
@@ -38,11 +40,15 @@ function Login({ onLogin }: any) {
             <div className='signup_body active'>
                 <h1 className='auth_title'>Login</h1>
                 <input type='text' className='text_input' placeholder='Email' value={inputs.email} onChange={e => setInputs({...inputs, email: e.target.value})} />
-                <input type='text' className='text_input' placeholder='Password' value={inputs.password} onChange={e => setInputs({...inputs, password: e.target.value})} />
+                {/* <input type='text' className='text_input' placeholder='Password' value={inputs.password} onChange={e => setInputs({...inputs, password: e.target.value})} /> */}
+                <div className='text_input_div'>
+                    <input type={isShowPassword ? 'text' : 'password'} className='password_input' placeholder='Password' value={inputs.password} onChange={e => setInputs({ ...inputs, password: e.target.value})} />
+                    <Eye isShowPassword={isShowPassword} setIsShowPassword={setIsShowPassword} />
+                </div>
                 <button className='auth_btn' onClick={handleLogin}>
                     <Finish />
                 </button>
-                <p className='error'>{error}</p>
+                {error && <p className='error'>{error}</p>}
             </div>
             <Link to='/signup' className='auth_link'>Don't have an account? Signup</Link>
         </div>

@@ -11,17 +11,16 @@
 .signup_body {
     width: 31.25vw;
     padding: 2.157497vh 0;
-    position: absolute;
     border-radius: 0.52083vw;
     background-color: #fff;
-    display: flex;
+    display: none;
     align-items: center;
     flex-direction: column;
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 .signup_body.active {
-    visibility: visible;
+    display: flex
 }
 
 .auth_title {
@@ -58,6 +57,25 @@
     margin-bottom: 4.314994vh;
 }
 
+.text_input_div {
+    width: 78.33%;
+    /* height: 3.7849vh; */
+    border: 1px solid linear-gradient(to right, #5E00D6, #F6BCFF);
+    /* border-bottom: 1px solid linear-gradient(to right, #5E00D6, #F6BCFF); */
+    padding: 0 2.5% 0.53vh;
+    margin-bottom: 4.314994vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.password_input {
+    width: 100%;
+    height: 100%;
+    font-size: 1.35416vw;
+    outline: none;
+    border: none;
+}
+
 .text_input::placeholder {
     color: #BDBDBD;
 }
@@ -82,10 +100,11 @@
 
 .auth_link {
     font-size: 1.35416vw;
-    /* margin-top: 1.6181vh; */
-    margin-top: 63vh;
+    margin-top: 1.6181vh;
+    /* margin-top: 63vh; */
     color: #fff;
     text-decoration: none;
+    user-select: none;
 }
 
 .auth_btn_div {
