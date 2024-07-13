@@ -51,7 +51,7 @@ function Signup({ onSignup }: any) {
                 <input type='file' id='file_input' />
                 <label htmlFor='file_input'></label>
                 <input type='text' className='text_input' placeholder='Enter your name' value={inputs.name} onChange={e => setInputs({ ...inputs, name: e.target.value})} />
-                <input type='text' className='text_input' placeholder='Tell about you(optional)' value={inputs.bio} onChange={e => setInputs({ ...inputs, bio: e.target.value})} />
+                <input type='text' className='text_input' placeholder='Tell about you (optional)' value={inputs.bio} onChange={e => setInputs({ ...inputs, bio: e.target.value})} />
                 <button className='auth_btn' onClick={() => setSlideIndex(1)}>
                     <Next />
                 </button>

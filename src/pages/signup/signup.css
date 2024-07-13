@@ -16,7 +16,6 @@
     display: none;
     align-items: center;
     flex-direction: column;
-    /* visibility: hidden; */
 }
 
 .signup_body.active {
@@ -59,9 +58,9 @@
 
 .text_input_div {
     width: 78.33%;
-    /* height: 3.7849vh; */
-    border: 1px solid linear-gradient(to right, #5E00D6, #F6BCFF);
-    /* border-bottom: 1px solid linear-gradient(to right, #5E00D6, #F6BCFF); */
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-image: linear-gradient(to right, #5E00D6, #F6BCFF) 1;
     padding: 0 2.5% 0.53vh;
     margin-bottom: 4.314994vh;
     display: flex;
@@ -70,10 +69,15 @@
 
 .password_input {
     width: 100%;
-    height: 100%;
+    height: 3.7849vh;
     font-size: 1.35416vw;
     outline: none;
     border: none;
+    margin-top: auto;
+}
+
+.password_input::placeholder {
+    color: #BDBDBD;
 }
 
 .text_input::placeholder {
