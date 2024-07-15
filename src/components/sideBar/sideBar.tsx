@@ -1,6 +1,6 @@
 import './sideBar.css';
 
-function SideBar() {
+function SideBar({ loadingChats }: boolean) {
   return(
     <div className='sideBar'>
       <div className='sideBar_header'>
