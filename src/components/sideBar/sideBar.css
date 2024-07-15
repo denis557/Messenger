@@ -1,6 +1,4 @@
 .sideBar {
-    /* width: 20.833vw; */
-    /* width: 19.79134vw; */
     width: 19.687168vw;
     height: 97.6268vh;
     padding: 1.1866vh 0.572916vw;
@@ -35,4 +33,9 @@
     background-image: url('../../assets/Search.svg');
     background-repeat: no-repeat;
     background-position: 10px;
+}
+
+.sideBar_main {
+    width: 100%;
+    margin-top: 1.618vh;
 }

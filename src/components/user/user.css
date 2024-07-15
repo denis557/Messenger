@@ -1,5 +1,42 @@
 .user {
-  width: 95%;
-  height: 8.6299vh;
+  width: 94.4%;
+  height: 7.0299vh;
+  padding: 0.8vh 2.6%;
   background-image: linear-gradient(to bottom right, #6F20D2, #D8C0F8);
+  border-radius: 0.52083vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+}
+
+.sideBar_user_avatar {
+  width: 3.385416vw;
+  height: 3.385416vw;
+  border-radius: 500px;
+  background-image: linear-gradient(to bottom left, #FF3535, #FF9393);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.0833vw;
+  margin-right: 0.5208vw;
+}
+
+.user_text {
+  align-self: flex-start;
+}
+
+.user_name {
+  font-size: 1.4583vw;
+}
+
+.user_lastMessage {
+  font-size: 1.0416vw;
+}
+
+.user_lastMessage_time {
+  font-size: 0.9375vw;
+  align-self: flex-start;
+  margin-left: auto;
 }

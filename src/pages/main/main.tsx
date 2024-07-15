@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 function Main() {
   const [loadingChats, setLoadingChats] = useState(true);
+  const [chats, setChats] = useState(null);
   useEffect(() => {
     const getChats = async () => {
         try {
@@ -15,9 +16,11 @@ function Main() {
             console.log(data.message);
             return
            }
-           console.log(data)
+           setChats(data);
         } catch (error) {
             console.log(error)
+        } finally {
+          setLoadingChats(false);
         }
     };
 
@@ -26,7 +29,7 @@ function Main() {
 
   return(
     <>
-      <SideBar loadingChats={loadingChats} />
+      <SideBar loadingChats={loadingChats} chats={chats} />
       <div className='wrapper'>
         <Header />
         <Chat />
