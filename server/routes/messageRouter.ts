@@ -5,8 +5,8 @@ const express = require('express');
 
 const router = express.Router();
 
+router.get('/chats', protectRoute, getChats);
 router.post('/sendMessage', protectRoute, sendMessage);
 router.get('/:otherUserId', protectRoute, getMessages);
-router.get('/chats', protectRoute, getChats);
 
 module.exports = router;

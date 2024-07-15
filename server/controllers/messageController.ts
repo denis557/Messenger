@@ -69,14 +69,14 @@ async function getMessages(req, res) {
 async function getChats(req, res) {
     const userId = req.user._id;
     try {
-        const chats = await Chat.find({ members: userId }).populate({
-            path: 'members',
-            select: 'name avatar'
+        const chat = await Chat.find({ members: userId }).populate({
+            path: "members",
+            select: "name avatar"
         });
 
-        return res.status(200).json({ error: false, chats });
+        return res.status(200).json(chat);
     } catch (error) {
-        return res.status(500).json({ error: true, message: error.message});
+        return res.status(500).json({ error: error.message });
     }
 }
 

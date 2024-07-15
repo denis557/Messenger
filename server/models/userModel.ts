@@ -9,4 +9,4 @@ const userSchema = new mongoose.Schema({
     avatar: { type: String, default: "" }
 });
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model("User", userSchema);
