@@ -13,7 +13,7 @@ function SideBar({ loadingChats, chats }) {
           <p>Loading...</p>
         :
           <>
-            <User chats={chats} />
+            {chats.map((chat, index) => <User chat={chat} key={index} />)}
           </>}
       </div>
     </div>

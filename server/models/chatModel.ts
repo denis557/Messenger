@@ -6,9 +6,9 @@ const chatSchema = new mongoose.Schema(
         lastMessage: {
             text: String,
             sender: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
-        }
+        },
     },
-    { timeStamps: true}
+    { timestamps: true}
 );
 
 export const Chat = mongoose.model("Chat", chatSchema);

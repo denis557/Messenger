@@ -38,4 +38,7 @@
 .sideBar_main {
     width: 100%;
     margin-top: 1.618vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.0787vh;
 }
