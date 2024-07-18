@@ -38,7 +38,7 @@ async function sendMessage(req, res) {
             })
         ]);
 
-        res.status(201).json({ error: false, message: 'Message sent successfully'});
+        res.status(201).json({ error: false, newMessage});
     } catch (error) {
         res.status(500).json({ error: true, message: error.message});
         console.log(error.message);

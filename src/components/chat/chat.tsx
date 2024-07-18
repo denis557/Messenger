@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import './chat.css'
 import { useSelector } from 'react-redux';
+import Message from '../message/message';
+import MessageInput from '../messageInput/messageInput';
 
 function Chat() {
     const { selectedUser } = useSelector(state => state.user);
@@ -31,9 +33,20 @@ function Chat() {
 
     return(
         <div className="chat">
-            {selectedUser._id &&
-                loadingMessages ? <p>Loading...</p> : messages.map((message, index) => <p key={index}>{message.text}</p>)
-            }
+            <div className='chat_section'>
+                {selectedUser.userId ?
+                    loadingMessages ?
+                        <p>Loading...</p>
+                    :
+                        <>
+                            <MessageInput setMessages={setMessages} />
+                            <div className='message_section'>  
+                                {messages.map((message, index) => <Message message={message} key={index} />)}
+                            </div>
+                        </>
+                :
+                <></>}
+            </div>
         </div>
     )
 }
