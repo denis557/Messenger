@@ -6,7 +6,7 @@ export interface userInterface {
         userId: string,
         username: string
     }
-};
+}
 
 const initialState: userInterface = {
     selectedUser: {

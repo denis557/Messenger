@@ -3,10 +3,14 @@ import SideBar from "../../components/sideBar/sideBar"
 import Header from "../../components/header/header"
 import Chat from '../../components/chat/chat';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setChats } from '../../components/chat/chatSlice';
 
 function Main() {
   const [loadingChats, setLoadingChats] = useState(true);
-  const [chats, setChats] = useState(null);
+  // const [chats, setChats] = useState(null);
+  const { chats } = useSelector(state => state.chats);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getChats = async () => {
@@ -17,11 +21,13 @@ function Main() {
             console.log(data.message);
             return
            }
-           setChats(data);
+          //  setChats(data);
+          dispatch(setChats(data))
         } catch (error) {
             console.log(error)
         } finally {
           setLoadingChats(false);
+          console.log(chats)
         }
     };
 

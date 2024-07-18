@@ -2,7 +2,7 @@ import './user.css'
 import { firstLetter } from '../../helpers/firstLetter'
 import { changeTimeZone } from '../../helpers/changeTimeZone'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectUser } from './toggleUser';
+import { selectUser } from './userSlice';
 
 function User({ chat }) {
   const { selectedUser } = useSelector(state => state.user);
