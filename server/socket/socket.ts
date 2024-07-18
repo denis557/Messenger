@@ -12,8 +12,16 @@ const io = new Server(server, {
     }
 })
 
+const userSocketMap = {}
 io.on('connection', (socket) => {
     console.log(socket.id);
+    const userId = socket.handshake.query.userId;
+
+    if(userId !== undefined) userSocketMap[userId] = socket.id;
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected')
+    })
 })
 
 export { io, server, app }

@@ -49,7 +49,6 @@ function MessageInput({ setMessages }) {
             }
             setMessages((messages) => [...messages, data.newMessage]);
             dispatch(setChats(updateChats(data)));
-            console.log(data)
             dispatch(sortChats());
             setMessage('');
         } catch (error) {
