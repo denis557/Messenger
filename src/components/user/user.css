@@ -8,10 +8,13 @@
   align-items: center;
   color: white;
   cursor: pointer;
+  background-color: transparent;
+  transition: all 0.2s;
 }
 
 .user:hover {
-  background-image: linear-gradient(to bottom right, #6F20D2, #D8C0F8);
+  background-color: #4D4D4D;
+  transition: all 0.2s;
 }
 
 .user.active {

@@ -7,11 +7,6 @@ import { useEffect, useState } from 'react';
 function Main() {
   const [loadingChats, setLoadingChats] = useState(true);
   const [chats, setChats] = useState(null);
-  // const [selectedChat, setSelectedChat] = useState({
-  //   _id: '',
-  //   userId: '',
-  //   username: ''
-  // })
 
   useEffect(() => {
     const getChats = async () => {
