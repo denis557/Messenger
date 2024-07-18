@@ -3,11 +3,21 @@ import './chat.css'
 import { useSelector } from 'react-redux';
 import Message from '../message/message';
 import MessageInput from '../messageInput/messageInput';
+import { useSocket } from '../../../server/context/socketContext';
 
 function Chat() {
     const { selectedUser } = useSelector(state => state.user);
     const [messages, setMessages] = useState([]);
     const [loadingMessages, setLoadingMessages] = useState(true);
+    const { socket } = useSocket();
+
+    useEffect(() => {
+        socket.on('newMessage', (message) => {
+            setMessages((m) => [...m, message])
+        })
+
+        return () => socket.off('newMessage');
+    }, [socket])
 
     useEffect(() => {
         if(selectedUser.userId) {

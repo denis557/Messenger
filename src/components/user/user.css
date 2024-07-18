@@ -55,3 +55,14 @@
   align-self: flex-start;
   margin-left: auto;
 }
+
+.online {
+  align-self: flex-end;
+  justify-self: flex-end;
+  /* margin-right: auto; */
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  background-color: #9060CD;
+  border: 1px solid #75559F;
+}
