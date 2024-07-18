@@ -3,13 +3,12 @@ import SideBar from "../../components/sideBar/sideBar"
 import Header from "../../components/header/header"
 import Chat from '../../components/chat/chat';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setChats } from '../../components/chat/chatSlice';
+import { useDispatch } from 'react-redux';
+import { setChats, sortChats } from '../../components/chat/chatSlice';
 
 function Main() {
   const [loadingChats, setLoadingChats] = useState(true);
-  // const [chats, setChats] = useState(null);
-  const { chats } = useSelector(state => state.chats);
+  // const { chats } = useSelector(state => state.chat);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,13 +20,12 @@ function Main() {
             console.log(data.message);
             return
            }
-          //  setChats(data);
           dispatch(setChats(data))
         } catch (error) {
             console.log(error)
         } finally {
           setLoadingChats(false);
-          console.log(chats)
+          dispatch(sortChats());
         }
     };
 
@@ -36,7 +34,7 @@ function Main() {
 
   return(
     <>
-      <SideBar loadingChats={loadingChats} chats={chats} />
+      <SideBar loadingChats={loadingChats} />
       <div className='wrapper'>
         <Header />
         <Chat />

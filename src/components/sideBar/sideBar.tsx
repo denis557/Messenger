@@ -1,7 +1,9 @@
 import './sideBar.css';
 import User from '../user/user';
+import { useSelector } from 'react-redux';
 
-function SideBar({ loadingChats, chats }) {
+function SideBar({ loadingChats }) {
+  const { chats } = useSelector(state => state.chat);
   return(
     <div className='sideBar'>
       <div className='sideBar_header'>

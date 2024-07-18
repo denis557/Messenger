@@ -33,10 +33,13 @@ export const chatSlice = createSlice({
   reducers: {
     setChats: (state, action: PayloadAction<Chat[]>) => {
       state.chats = action.payload
+    },
+    sortChats: (state) => {
+      state.chats.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
     }
   }
 })
 
-export const { setChats } = chatSlice.actions
+export const { setChats, sortChats } = chatSlice.actions
 
 export default chatSlice.reducer

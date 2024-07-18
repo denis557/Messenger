@@ -3,11 +3,30 @@ import Add from '../../assets/AddMessage'
 import Send from '../../assets/Send'
 import Emoji from '../../assets/Emoji'
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setChats, sortChats } from '../chat/chatSlice';
 
 function MessageInput({ setMessages }) {
     const [message, setMessage] = useState('');
     const { selectedUser } = useSelector(state => state.user);
+    const { chats } = useSelector(state => state.chat);
+    const dispatch = useDispatch();
+
+    const updateChats = (data) => {
+        const updatedChats = chats.map(chat => {
+            if(chat._id === selectedUser._id) {
+                return {
+                    ...chat,
+                    lastMessage: {
+                        text: message,
+                        sender: data.newMessage.userId
+                    }
+                }
+            }
+            return chat
+        });
+        return updatedChats
+    }
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -28,8 +47,11 @@ function MessageInput({ setMessages }) {
                 console.log(data)
                 return
             }
-
             setMessages((messages) => [...messages, data.newMessage]);
+            dispatch(setChats(updateChats(data)));
+            console.log(data)
+            dispatch(sortChats());
+            setMessage('');
         } catch (error) {
             console.log(error)
         }
