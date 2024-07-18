@@ -12,12 +12,13 @@ const io = new Server(server, {
     }
 })
 
-const userSocketMap = {}
+const userSocketMap: { [key: string]: string } = {}
 io.on('connection', (socket) => {
     console.log(socket.id);
-    const userId = socket.handshake.query.userId;
+    const userId = socket.handshake.query.userId as string | undefined;
 
     if(userId !== undefined) userSocketMap[userId] = socket.id;
+    io.emit('getOnlineUsers', Object.keys(userSocketMap));
 
     socket.on('disconnect', () => {
         console.log('user disconnected')

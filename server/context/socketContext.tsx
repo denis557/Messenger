@@ -38,6 +38,7 @@ export const useSocket = () => {
 export const SocketContextProvider = ({ children }) => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const user = JSON.parse(localStorage.getItem("user-threads")!);
+    const [onlineUsers, setOnlineUsers] = useState([])
 
     useEffect(() => {
         const newSocket = io('http://localhost:5000', {
@@ -48,8 +49,13 @@ export const SocketContextProvider = ({ children }) => {
 
         setSocket(newSocket);
 
+        newSocket.on('getOnlineUsers', (users) => {
+            setOnlineUsers(users)
+        })
+
         return () => { newSocket && newSocket.close(); };
-    }, [user?._id]);
+    }, [user?._id, onlineUsers]);
+    console.log("Onlineusers",onlineUsers)
 
     return <SocketContext.Provider value={{ socket }}>{children}</SocketContext.Provider>
 }
