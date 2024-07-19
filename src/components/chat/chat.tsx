@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './chat.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { setChats, sortChats } from '../chat/chatSlice';
@@ -13,6 +13,13 @@ function Chat() {
     const [loadingMessages, setLoadingMessages] = useState(true);
     const { socket } = useSocket();
     const dispatch = useDispatch();
+    const messageRef = useRef(null);
+
+    const scrollToBottom = () => {
+        if (messageRef.current) {
+            messageRef.current.scrollTo(0, 100000);
+        }
+    };
 
     const updateChats = (data) => {
         const updatedChats = chats.map(chat => {
@@ -30,6 +37,10 @@ function Chat() {
         });
         return updatedChats;
     };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     useEffect(() => {
         socket.on('newMessage', (message) => {
@@ -72,7 +83,7 @@ function Chat() {
                     :
                         <>
                             <MessageInput setMessages={setMessages} />
-                            <div className='message_section'>  
+                            <div className='message_section' ref={messageRef}>  
                                 {messages.map((message, index) => <Message message={message} key={index} />)}
                             </div>
                         </>

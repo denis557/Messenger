@@ -15,6 +15,9 @@
 
 .menu_btn {
     margin: 1.29449vh 0.8vw 0;
+    width: 2.0833vw;
+    height: 2.80474vh;
+    min-height: 23px;
     min-width: 35px;
 }
 
@@ -31,6 +34,7 @@
     font-size: 1.25vw;
     color: white;
     background-image: url('../../assets/Search.svg');
+    background-size: 1.822916vw 1.822916vw;
     background-repeat: no-repeat;
     background-position: 10px;
 }
