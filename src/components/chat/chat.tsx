@@ -19,6 +19,7 @@ function Chat() {
             if (chat._id === data.chatId) {
                 return {
                     ...chat,
+                    updatedAt: new Date().toISOString(),
                     lastMessage: {
                         text: data.text,
                         sender: data.userId,
@@ -62,7 +63,7 @@ function Chat() {
         }
     }, [selectedUser.userId])
 
-    return(
+    return (
         <div className="chat">
             <div className='chat_section'>
                 {selectedUser.userId ?

@@ -18,8 +18,6 @@ function Signup({ onSignup }: any) {
         username: ''
     });
 
-    const navigate = useNavigate()
-
     const handleSignup = async () => {
         try {
             const res = await fetch('/api/auth/signup', {
@@ -38,7 +36,6 @@ function Signup({ onSignup }: any) {
             
             localStorage.setItem('user-threads', JSON.stringify(data));
             onSignup(data);
-            // navigate('/');
         } catch (error) {
             console.log(error)
         }

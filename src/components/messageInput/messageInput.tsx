@@ -5,9 +5,11 @@ import Emoji from '../../assets/Emoji'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChats, sortChats } from '../chat/chatSlice';
+import EmojiPicker from 'emoji-picker-react';
 
 function MessageInput({ setMessages }) {
     const [message, setMessage] = useState('');
+    const [isShowEmoji, setIsShowEmoji] = useState(false);
     const { selectedUser } = useSelector(state => state.user);
     const { chats } = useSelector(state => state.chat);
     const dispatch = useDispatch();
@@ -17,6 +19,7 @@ function MessageInput({ setMessages }) {
             if(chat._id === selectedUser._id) {
                 return {
                     ...chat,
+                    updatedAt: new Date().toISOString(),
                     lastMessage: {
                         text: message,
                         sender: data.newMessage.userId
@@ -55,15 +58,19 @@ function MessageInput({ setMessages }) {
             console.log(error)
         }
     }
-    return(
-        <form className='input_section' onSubmit={handleSendMessage}>
-            <div className='input_btn'><Add /></div>
-            <div className='input_div'>
-                <input type='text' className='message_input' placeholder='Enter a message' value={message} onChange={e => setMessage(e.target.value)} />
-                <button type='button' className='emoji_btn'><Emoji /></button>
-            </div>
-            <button type='submit' className='input_btn'><Send /></button>
-        </form>
+    return (
+        <>
+            <EmojiPicker theme='dark' emojiStyle='apple' open={isShowEmoji} className='emoji_picker' onEmojiClick={(emoji) => {setMessage(m => m + emoji.emoji), setIsShowEmoji(false)}} />
+            <form className='input_section' onSubmit={handleSendMessage}>
+                <input type='file' id='file_message_input' />
+                <label htmlFor='file_message_input'><Add /></label>
+                <div className='input_div'>
+                    <input type='text' className='message_input' placeholder='Enter a message' value={message} onChange={e => setMessage(e.target.value)} />
+                    <button type='button' className='emoji_btn' onClick={() => setIsShowEmoji(true)}><Emoji /></button>
+                </div>
+                <button type='submit' className='input_btn'><Send /></button>
+            </form>
+        </>
     )
 }
 

@@ -8,6 +8,7 @@ import { useSocket } from '../../../server/context/socketContext';
 function User({ chat }) {
   const { socket, onlineUsers } = useSocket();
   const { selectedUser } = useSelector(state => state.user);
+  // console.log(new Date().toISOString());
   const dispatch = useDispatch();
   return(
     <div className={`user ${selectedUser._id === chat._id && 'active'}`} onClick={() => dispatch(selectUser({ selectedUser: {_id: chat._id, userId: chat.members[0]._id, username: chat.members[0].name} }))}>
