@@ -6,7 +6,6 @@ import { useSocket } from '../../../server/context/socketContext';
 
 function Header() {
   const { selectedUser } = useSelector(state => state.user);
-  console.log(selectedUser)
   const {onlineUsers} = useSocket();
   return(
     <div className='header'>

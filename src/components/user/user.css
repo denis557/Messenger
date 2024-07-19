@@ -21,6 +21,19 @@
   background-image: linear-gradient(to bottom right, #6F20D2, #D8C0F8);
 }
 
+.siseBar_user_avatar_border {
+  /* width: 3.489583vw;
+  height: 3.489583vw; */
+  width: 3.59375vw;
+  height: 3.59375vw;
+  border-radius: 500px;
+  background-color: transparent;
+  border: 2px solid #77D7A9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sideBar_user_avatar {
   width: 3.385416vw;
   height: 3.385416vw;
@@ -30,11 +43,11 @@
   align-items: center;
   justify-content: center;
   font-size: 2.0833vw;
-  margin-right: 0.5208vw;
 }
 
 .user_text {
   align-self: flex-start;
+  margin-left: 0.5208vw;
 }
 
 .user_name {
