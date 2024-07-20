@@ -7,6 +7,7 @@ import MessageInput from '../messageInput/messageInput';
 import { useSocket } from '../../../server/context/socketContext';
 
 function Chat() {
+    const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
     const { selectedUser } = useSelector(state => state.user);
     const { chats } = useSelector(state => state.chat)
     const [messages, setMessages] = useState([]);
@@ -50,7 +51,34 @@ function Chat() {
         })
 
         return () => socket.off('newMessage');
-    }, [socket, chats, selectedUser, dispatch])
+    }, [socket, chats, selectedUser, dispatch]);
+
+    useEffect(() => {
+        const isMessageNotOwn = messages.length &&  messages[messages.length - 1].sender !== (currentUser.user || currentUser.newUser)._id;
+        if(isMessageNotOwn) {
+            socket.emit('markMessagesAsSeen', {
+                chatId: selectedUser._id,
+                userId: selectedUser.user
+            })
+        };
+
+        socket.on('mmessagesSeen', ({ chatId }) => {
+            if(selectedUser._id === chatId) {
+                setMessages(prev => {
+                    const updatedMessages = prev.map((message: any) => {
+                        if(!message.seen) {
+                            return {
+                                ...message, 
+                                seen: true
+                            }
+                        }
+                        return message
+                    })
+                    return updatedMessages
+                })
+            }
+        })
+    }, [socket, currentUser._id, selectedUser])
 
     useEffect(() => {
         if(selectedUser.userId) {
@@ -72,7 +100,7 @@ function Chat() {
     
             getMessages();
         }
-    }, [selectedUser.userId])
+    }, [selectedUser.userId]);
 
     return (
         <div className="chat">

@@ -1,4 +1,5 @@
 import { Server } from "socket.io";
+import { Message } from '../models/messageModel'
 
 const http = require('http');
 const express = require('express');
@@ -21,6 +22,15 @@ io.on("connection", (socket) => {
 
 	if (userId != "undefined") userSocketMap[userId] = socket.id;
 	io.emit("getOnlineUsers", Object.keys(userSocketMap));
+
+	socket.on('markMessagesAsSeen', async({ chatId, userId }) => {
+		try {
+			await Message.updateMany({ chatId: chatId, seen: false }, { $set: {seen: true} });
+			io.to(userSocketMap[userId]).emit('messagesSeen', { chatId });
+		} catch (error) {
+			console.log(error)
+		}
+	})
 
 	socket.on("disconnect", () => {
 		console.log("user disconnected");

@@ -68,4 +68,6 @@
 .emoji_picker {
     /* width: 500px; */
     position: absolute;
+    margin-bottom: 10px;
+    margin-left: auto;
 }
