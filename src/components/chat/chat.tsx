@@ -47,24 +47,24 @@ function Chat() {
         socket.on('newMessage', (message) => {
             setMessages((m) => [...m, message]);
             dispatch(setChats(updateChats(message)));
-            dispatch(sortChats)
+            dispatch(sortChats())
         })
 
         return () => socket.off('newMessage');
     }, [socket, chats, selectedUser, dispatch]);
 
     useEffect(() => {
-        const isMessageNotOwn = messages.length &&  messages[messages.length - 1].sender !== (currentUser.user || currentUser.newUser)._id;
+        const isMessageNotOwn = messages.length && messages[messages.length - 1].userId !== (currentUser.user || currentUser.newUser)._id;
         if(isMessageNotOwn) {
             socket.emit('markMessagesAsSeen', {
                 chatId: selectedUser._id,
                 userId: selectedUser.user
             })
-        };
+        }
 
-        socket.on('mmessagesSeen', ({ chatId }) => {
+        socket.on('messagesSeen', ({ chatId }) => {
             if(selectedUser._id === chatId) {
-                setMessages(prev => {
+                setMessages((prev: any) => {
                     const updatedMessages = prev.map((message: any) => {
                         if(!message.seen) {
                             return {

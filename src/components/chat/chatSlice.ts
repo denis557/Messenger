@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Message {
+interface LastMessage {
   text: string;
   sender: string;
+  seen: boolean;
 }
 
 interface Member {
@@ -14,7 +15,7 @@ interface Member {
 interface Chat {
   _id: string;
   createdAt: string;
-  lastMessage: Message;
+  lastMessage: LastMessage;
   members: Member[];
   updatedAt: string;
 }
@@ -36,7 +37,7 @@ export const chatSlice = createSlice({
     },
     sortChats: (state) => {
       state.chats.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-    }
+    },
   }
 })
 
