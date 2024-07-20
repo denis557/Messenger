@@ -31,6 +31,7 @@ function Chat() {
                     lastMessage: {
                         text: data.text,
                         sender: data.userId,
+                        seen: data.seen
                     },
                 };
             }
@@ -42,6 +43,26 @@ function Chat() {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    useEffect(() => {
+        socket?.on('messagesSeen', ({ chatId }) => {
+            dispatch(setChats(() => {
+                const updatedChats = chats.map(chat => {
+                    if(chat._id === selectedUser._id) {
+                        return {
+                            ...chat, 
+                            lastMessage: {
+                                ...chat.lastMessage,
+                                seen: true
+                            }
+                        }
+                    }
+                    return chat
+                })
+                return updatedChats
+            }))
+        })
+    }, [])
 
     useEffect(() => {
         socket.on('newMessage', (message) => {

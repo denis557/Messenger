@@ -60,7 +60,6 @@ function MessageInput({ setMessages }) {
     }
     return (
         <>
-            {/* <EmojiPicker theme='dark' emojiStyle='apple' open={isShowEmoji} className='emoji_picker' onEmojiClick={(emoji) => {setMessage(m => m + emoji.emoji), setIsShowEmoji(false)}} /> */}
             <form className='input_section' onSubmit={handleSendMessage}>
                 <input type='file' id='file_message_input' />
                 <label htmlFor='file_message_input'><Add /></label>
@@ -70,7 +69,9 @@ function MessageInput({ setMessages }) {
                 </div>
                 <button type='submit' className='input_btn'><Send /></button>
             </form>
-            <EmojiPicker theme='dark' emojiStyle='apple' open={isShowEmoji} className='emoji_picker' onEmojiClick={(emoji) => {setMessage(m => m + emoji.emoji), setIsShowEmoji(false)}} />
+            <div className='emoji_div'>
+                <EmojiPicker theme='dark' emojiStyle='apple' open={isShowEmoji} className='emoji_picker' onEmojiClick={(emoji) => {setMessage(m => m + emoji.emoji), setIsShowEmoji(false)}} />
+            </div>
         </>
     )
 }

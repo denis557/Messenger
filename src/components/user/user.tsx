@@ -4,11 +4,13 @@ import { changeTimeZone } from '../../helpers/changeTimeZone'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from './userSlice';
 import { useSocket } from '../../../server/context/socketContext';
+import Seen from '../../assets/Seen'
+import Unseen from '../../assets/Unseen'
 
 function User({ chat }) {
-  const { socket, onlineUsers } = useSocket();
+  const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
+  const { onlineUsers } = useSocket();
   const { selectedUser } = useSelector(state => state.user);
-  // console.log(new Date().toISOString());
   const dispatch = useDispatch();
   return(
     <div className={`user ${selectedUser._id === chat._id && 'active'}`} onClick={() => dispatch(selectUser({ selectedUser: {_id: chat._id, userId: chat.members[0]._id, username: chat.members[0].name} }))}>
@@ -27,7 +29,10 @@ function User({ chat }) {
         <p className='user_name'>{chat.members[0].name}</p>
         <p className='user_lastMessage'>{chat.lastMessage.text}</p>
       </div>
-      <p className='user_lastMessage_time'>{changeTimeZone(chat.updatedAt)}</p>
+      <div className='user_lastMessage_info_div'>
+        {(currentUser.user || currentUser.newUser)._id === chat.lastMessage.sender ? chat.lastMessage.seen ? <Seen /> : <Unseen /> : ''}
+        <p className='user_lastMessage_time'>{changeTimeZone(chat.updatedAt)}</p>
+      </div>
     </div>
   )
 }

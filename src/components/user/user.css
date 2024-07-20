@@ -63,10 +63,15 @@
   overflow: hidden;
 }
 
-.user_lastMessage_time {
-  font-size: 0.9375vw;
+.user_lastMessage_info_div {
+  display: flex;
+  flex-direction: row;
   align-self: flex-start;
   margin-left: auto;
+}
+
+.user_lastMessage_time {
+  font-size: 0.9375vw;
 }
 
 .online {
