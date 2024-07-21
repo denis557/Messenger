@@ -12,7 +12,8 @@ function User({ chat }) {
   const { onlineUsers } = useSocket();
   const { selectedUser } = useSelector(state => state.user);
   const dispatch = useDispatch();
-  return(
+
+  return (
     <div className={`user ${selectedUser._id === chat._id && 'active'}`} onClick={() => dispatch(selectUser({ selectedUser: {_id: chat._id, userId: chat.members[0]._id, username: chat.members[0].name} }))}>
       {onlineUsers.includes(chat.members[0]._id) ? 
         <div className='siseBar_user_avatar_border'>

@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../components/user/userSlice.ts'
 import chatReducer from '../components/chat/chatSlice.ts'
+import pageReducer from '../components/sideBar/sideBarSlice.ts'
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    chat: chatReducer
+    chat: chatReducer,
+    page: pageReducer
   },
 })
 

@@ -1,7 +1,8 @@
-import { io } from '../socket/socket';
+import { io } from '../socket/socket'
 import { Chat } from '../models/chatModel'
+import { User } from '../models/userModel'
 import { Message } from '../models/messageModel'
-import { getRecipientSocketId } from '../socket/socket';
+import { getRecipientSocketId } from '../socket/socket'
 
 async function sendMessage(req, res) {
     try {
@@ -93,4 +94,17 @@ async function getChats(req, res) {
     }
 }
 
-export { sendMessage, getMessages, getChats }
+async function getAllUsers(req, res) {
+    const userId = req.user._id;
+    try {
+        const users = await User.find({ _id: { $ne: userId } });
+
+        if(!users) return res.status(400).json({ error: true, message: 'No users found' });
+
+        return res.status(200).json({ error: false, users})
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+}
+
+export { sendMessage, getMessages, getChats, getAllUsers }

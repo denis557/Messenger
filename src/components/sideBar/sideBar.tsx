@@ -1,23 +1,24 @@
 import './sideBar.css';
-import User from '../user/user';
+import SideBarMain from '../sideBarMain/sideBarMain';
+import SideBarSearch from '../sideBarSearch/sideBarSearch';
 import { useSelector } from 'react-redux';
 
 function SideBar({ loadingChats }) {
-  const { chats } = useSelector(state => state.chat);
+  const { page } = useSelector(state => state.page);
+
   return(
     <div className='sideBar'>
-      <div className='sideBar_header'>
-        <svg className='menu_btn' width="44" height="30" viewBox="0 0 44 30" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2 2H42" stroke="#CACACA" strokeWidth="3.5" strokeLinecap="round"/> <path d="M2 15H42" stroke="#CACACA" strokeWidth="3.5" strokeLinecap="round"/> <path d="M2 28H42" stroke="#CACACA" strokeWidth="3.5" strokeLinecap="round"/></svg>
-        <input className='sideBar_search' />
-      </div>
-      <div className='sideBar_main'>
-        {loadingChats ?
-          <p>Loading...</p>
+      {loadingChats ? 
+        <p>Loading...</p>
+      :
+        page === 'main' ?
+          <SideBarMain />
         :
-          <>
-            {chats.map((chat, index) => <User chat={chat} key={index} />)}
-          </>}
-      </div>
+        page === 'search' ?
+          <SideBarSearch />
+        :
+        ''
+      }
     </div>
   )
 }
