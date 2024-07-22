@@ -16,7 +16,6 @@ function Chat() {
     const { socket } = useSocket();
     const dispatch = useDispatch();
     const messageRef = useRef(null);
-    console.log(selectedUser)
 
     const scrollToBottom = () => {
         if (messageRef.current) {

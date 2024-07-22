@@ -75,12 +75,12 @@ function MessageInput({ setMessages }) {
             dispatch(sortChats());
             dispatch(setPage({page: 'main'}));
             getChats();
-            const chat = searchedUser.searchedUser?._id ? chats.find(chat => chat.members[0]._id === searchedUser.searchedUser?._id) : '';
-            searchedUser.searchedUser?._id && dispatch(selectUser({ selectedUser: {_id: chat?._id, userId: chat?.members[0]._id, username: chat?.members[0].name} }));
+            const selectedChat = searchedUser.searchedUser?._id ? chats.find(chat => chat.members[0]?._id === searchedUser.searchedUser?._id) : '';
+            searchedUser.searchedUser?._id && dispatch(selectUser({ selectedUser: {_id: selectedChat?._id, userId: selectedChat?.members[0]._id, username: selectedChat?.members[0].name} }));
             dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));
             setMessage('');
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
     return (
