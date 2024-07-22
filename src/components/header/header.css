@@ -10,6 +10,7 @@
 .header_user {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-left: 1.04166vw;
 }
 
@@ -26,9 +27,14 @@
     margin-right: 0.5208vw;
 }
 
+.header_avatar.saved {
+    background-image: linear-gradient(to bottom left, #3586FF, #3525E9);
+}
+
 .header_username {
     color: white;
     font-size: 1.5625vw;
+    height: fit-content;
 }
 
 .header_status {

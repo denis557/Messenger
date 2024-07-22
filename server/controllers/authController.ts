@@ -1,3 +1,4 @@
+import { Chat } from '../models/chatModel';
 import { User } from '../models/userModel'
 import generateJwtAndSetCookie from '../utils/jwt&cookie';
 const bcrypt = require('bcrypt');
@@ -27,6 +28,16 @@ const signup = async (req, res) => {
         });
 
         await newUser.save();
+
+        const chat = new Chat({
+            members: [ newUser._id ],
+            lastMessage: {
+                text: '',
+                sender: newUser._id
+            }
+        });
+
+        await chat.save();
 
         if(newUser) {
             generateJwtAndSetCookie(newUser._id, res);

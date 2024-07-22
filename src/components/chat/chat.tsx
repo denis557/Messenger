@@ -10,13 +10,13 @@ function Chat() {
     const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
     const { selectedUser } = useSelector(state => state.user);
     const { chats } = useSelector(state => state.chat);
-    console.log(chats)
     const { searchedUser } = useSelector(state => state.searchedUser);
     const [messages, setMessages] = useState([]);
     const [loadingMessages, setLoadingMessages] = useState(true);
     const { socket } = useSocket();
     const dispatch = useDispatch();
     const messageRef = useRef(null);
+    console.log(selectedUser)
 
     const scrollToBottom = () => {
         if (messageRef.current) {

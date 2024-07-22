@@ -1,0 +1,15 @@
+.sideBar_saved_avatar {
+    width: 3.385416vw;
+    height: 3.385416vw;
+    border-radius: 500px;
+    background-image: linear-gradient(to bottom left, #3586FF, #3525E9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saved_name {
+    font-size: 1.4583vw;
+    align-self: center;
+    justify-self: center;
+}

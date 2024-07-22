@@ -3,6 +3,7 @@ import User from '../user/user';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setPage } from '../sideBar/sideBarSlice';
+import SavedMessages from '../savedMessages/savedMessages';
 
 function SideBarMain() {
     const { chats } = useSelector((state: any) => state.chat);
@@ -15,7 +16,7 @@ function SideBarMain() {
                 <input className='sideBar_search' onClick={() => dispatch(setPage({page: 'search'}))} />
             </div>
             <div className='sideBar_main'>
-                {chats.map((chat: any, index: number) => <User chat={chat} key={index} />)}
+                {chats.map((chat: any, index: number) => chat.members.length ? <User chat={chat} key={index} /> : <SavedMessages chat={chat} key={index} isHeader={false} />)}
             </div>
         </>
     )
