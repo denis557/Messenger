@@ -13,10 +13,6 @@ function SideBarSearch() {
     const { chats } = useSelector(state => state.chat);
     const dispatch = useDispatch();
 
-    function getUser(user) {
-        chats.map(chat => chat.members[0]._id == user._id ? <User /> : '')
-    }
-
     useEffect(() => {
         if(!searchInput && !users.length) {
             const getUsers = async () => {
@@ -52,7 +48,20 @@ function SideBarSearch() {
                         <hr className='sideBar_search_hr' />
                     </>
                 :
-                    users.map((user: any) => chats.map((chat: any) => chat.members[0]._id === user._id ? <User chat={chat} /> : <SearchedUser user={user} />))}
+                    users.map((user: any, index: number) => {
+                        const isChat = chats.find((chat: any) => chat.members.some((member: any) => member._id === user._id));
+
+                        if(isChat) {
+                            if(user.name.includes(searchInput)) {
+                                return <User key={index} chat={isChat} />
+                            }
+                        } else {
+                            if(user.username.includes(searchInput)) {
+                                return <SearchedUser key={index} user={user} />
+                            }
+                        }
+                    })
+                }
             </div>
         </>
     )

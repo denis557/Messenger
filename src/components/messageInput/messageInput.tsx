@@ -5,12 +5,16 @@ import Emoji from '../../assets/Emoji'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChats, sortChats } from '../chat/chatSlice';
+import { setPage } from '../sideBar/sideBarSlice';
 import EmojiPicker from 'emoji-picker-react';
+import { setSearchedUser } from '../chat/searchedUserSlice';
+import { selectUser } from '../user/userSlice';
 
 function MessageInput({ setMessages }) {
     const [message, setMessage] = useState('');
     const [isShowEmoji, setIsShowEmoji] = useState(false);
     const { selectedUser } = useSelector(state => state.user);
+    const { searchedUser } = useSelector(state => state.searchedUser);
     const { chats } = useSelector(state => state.chat);
     const dispatch = useDispatch();
 
@@ -31,6 +35,22 @@ function MessageInput({ setMessages }) {
         return updatedChats
     }
 
+    const getChats = async () => {
+        try {
+           const res = await fetch('/api/message/chats');
+           const data = await res.json();
+           if(data.error) {
+            console.log(data.message);
+            return
+           }
+          dispatch(setChats(data))
+        } catch (error) {
+            console.log(error)
+        } finally {
+          dispatch(sortChats());
+        }
+      };
+
     const handleSendMessage = async (e) => {
         e.preventDefault();
         if(!message) return;
@@ -42,7 +62,7 @@ function MessageInput({ setMessages }) {
                 },
                 body: JSON.stringify({
                     message: message,
-                    recipientId: selectedUser.userId
+                    recipientId: selectedUser.userId || searchedUser.searchedUser?._id
                 })
             });
             const data = await res.json();
@@ -53,6 +73,11 @@ function MessageInput({ setMessages }) {
             setMessages((messages) => [...messages, data.newMessage]);
             dispatch(setChats(updateChats(data)));
             dispatch(sortChats());
+            dispatch(setPage({page: 'main'}));
+            getChats();
+            const chat = searchedUser.searchedUser?._id ? chats.find(chat => chat.members[0]._id === searchedUser.searchedUser?._id) : '';
+            searchedUser.searchedUser?._id && dispatch(selectUser({ selectedUser: {_id: chat?._id, userId: chat?.members[0]._id, username: chat?.members[0].name} }));
+            dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));
             setMessage('');
         } catch (error) {
             console.log(error)

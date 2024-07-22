@@ -3,6 +3,7 @@ import { firstLetter } from '../../helpers/firstLetter'
 import { changeTimeZone } from '../../helpers/changeTimeZone'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from './userSlice';
+import { setSearchedUser } from "../chat/searchedUserSlice";
 import { useSocket } from '../../../server/context/socketContext';
 import Seen from '../../assets/Seen'
 import Unseen from '../../assets/Unseen'
@@ -14,7 +15,10 @@ function User({ chat }) {
   const dispatch = useDispatch();
 
   return (
-    <div className={`user ${selectedUser._id === chat._id && 'active'}`} onClick={() => dispatch(selectUser({ selectedUser: {_id: chat._id, userId: chat.members[0]._id, username: chat.members[0].name} }))}>
+    <div className={`user ${selectedUser._id === chat._id && 'active'}`} onClick={() => {
+      dispatch(selectUser({ selectedUser: {_id: chat._id, userId: chat.members[0]._id, username: chat.members[0].name} }));
+      dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }))
+    }}>
       {onlineUsers.includes(chat.members[0]._id) ? 
         <div className='siseBar_user_avatar_border'>
           <div className='sideBar_user_avatar'>
