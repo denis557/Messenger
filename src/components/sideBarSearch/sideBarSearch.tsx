@@ -2,13 +2,20 @@ import './sideBarSearch.css'
 import { Back } from '../../assets/Back'
 import { NewGroup } from '../../assets/NewGroup';
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPage } from '../sideBar/sideBarSlice';
+import User from '../user/user';
+import SearchedUser from '../searchedUser/searchedUser';
 
 function SideBarSearch() {
     const [searchInput, setSearchInput] = useState('');
     const [users, setUsers] = useState([]);
+    const { chats } = useSelector(state => state.chat);
     const dispatch = useDispatch();
+
+    function getUser(user) {
+        chats.map(chat => chat.members[0]._id == user._id ? <User /> : '')
+    }
 
     useEffect(() => {
         if(!searchInput && !users.length) {
@@ -21,7 +28,6 @@ function SideBarSearch() {
                         return
                     }
                     setUsers(data.users)
-                    console.log(data)
                 } catch (error) {
                     console.log(error);
                 }
@@ -46,7 +52,7 @@ function SideBarSearch() {
                         <hr className='sideBar_search_hr' />
                     </>
                 :
-                    ''}
+                    users.map((user: any) => chats.map((chat: any) => chat.members[0]._id === user._id ? <User chat={chat} /> : <SearchedUser user={user} />))}
             </div>
         </>
     )
