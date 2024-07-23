@@ -45,13 +45,19 @@
 .more_btn {
     border: none;
     background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 15px */
+    width: 0.78125vw;
 }
 
 .header_icons {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 2.604166vw;
+    /* gap: 2.60416vw; */
+    gap: 2.08333vw;
     margin-right: 2.0833vw;
     margin-left: auto;
 }

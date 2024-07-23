@@ -1,0 +1,54 @@
+.modal_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 15%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete_chat_body {
+  /* width: 28.6458vw; */
+  width: 26.0417vw;
+  padding: 2.1574vh 1.3020vw;
+  border-radius: 0.52083vw;
+  background-color: #3F3F3F;
+  display: flex;
+  flex-direction: column;
+  gap: 4.314994vh;
+}
+
+.delete_chat_title_div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.0787vh;
+  color: #fff;
+}
+
+.delete_chat_title {
+  font-size: 1.66vw;
+}
+
+.delete_chat_action {
+  font-size: 1.14583vw;
+}
+
+.delete_chat_actions_div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.61812vh
+}
+
+.delete_chat_delete {
+  color: #F34848;
+  font-size: 1.66vw;
+}
+
+.delete_chat_cancel {
+  color: #fff;
+  font-size: 1.66vw;
+  cursor: pointer;
+}

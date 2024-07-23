@@ -1,5 +1,4 @@
 import './header.css';
-// import Logout from '../logout';
 import { useSelector } from 'react-redux';
 import { firstLetter } from '../../helpers/firstLetter';
 import { useSocket } from '../../../server/context/socketContext';
@@ -10,6 +9,8 @@ import { Menu, Item, useContextMenu, Separator } from 'react-contexify';
 import { Select } from '../../assets/Select';
 import { Block } from '../../assets/Block';
 import { Delete } from '../../assets/Delete';
+import { useState } from 'react';
+import DeleteChatModal from '../deleteChatModal/deleteChatModal';
 
 const CHAT_MENU_ID = 'chat_menu_id';
 
@@ -18,6 +19,7 @@ function Header() {
   const { selectedUser } = useSelector(state => state.user);
   const { searchedUser } = useSelector(state => state.searchedUser);
   const {onlineUsers} = useSocket();
+  const [isDeleteChatOpen, setIsDeleteChatOpen] = useState(false);
 
   const { show } = useContextMenu({
     id: CHAT_MENU_ID
@@ -30,10 +32,6 @@ function Header() {
   function displayMenu(e){
     show({
       event: e,
-      // position: {
-      //   x: 1530,
-      //   y: 55
-      // }
     });
 }
 
@@ -71,6 +69,8 @@ function Header() {
         </>
       }
 
+      {isDeleteChatOpen && <DeleteChatModal setIsDeleteChatOpen={setIsDeleteChatOpen} />}
+
       <Menu id={CHAT_MENU_ID} className='chat_menu' animation={null} >
         <Item onClick={handleItemClick} className='chat_menu_item'>
           <Select />
@@ -81,7 +81,7 @@ function Header() {
           <p>Block user</p>
         </Item>
         <Separator />
-        <Item onClick={handleItemClick} className='chat_menu_item'>
+        <Item onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_item'>
           <Delete />
           <p className='chat_menu_red_p'>Delete chat</p>
         </Item>
