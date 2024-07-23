@@ -6,7 +6,7 @@ import { getRecipientSocketId } from '../socket/socket'
 
 async function sendMessage(req, res) {
     try {
-        const { recipientId, message } = req.body;
+        const { recipientId, message, repliedMessageId } = req.body;
         const senderId = req.user._id;
 
         let chat = await Chat.findOne({
@@ -28,7 +28,8 @@ async function sendMessage(req, res) {
         const newMessage = new Message({
             chatId: chat._id,
             userId: senderId,
-            text: message
+            text: message,
+            reply: repliedMessageId
         })
 
         await Promise.all([
@@ -50,6 +51,32 @@ async function sendMessage(req, res) {
     } catch (error) {
         res.status(500).json({ error: true, message: error.message});
         console.log(error.message);
+    }
+}
+
+async function editMessage(req, res) {
+    const { updatedMessage, repliedMessageId } = req.body;
+    const { id } = req.params.id;
+    try {
+        const message = await Message.findById(id);
+        if(!message) res.status(400).json({ error: true, message: 'Message not found' })
+        
+        await message.updateOne({ text: updatedMessage, edited: true, reply: repliedMessageId });
+        await message.save();
+
+        res.status(200).json({ error: false, message })
+    } catch (error) {
+        res.status(500).json({ error: true, message: error })
+    }
+}
+
+async function deleteMessage(req, res) {
+    try {
+        await Message.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({ error: false, message: "Message deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ error: true, message: error })
     }
 }
 
@@ -109,12 +136,6 @@ async function getAllUsers(req, res) {
 
 async function deleteChat(req, res) {
     try {
-        // const chat = await Chat.findById(req.params.id);
-
-        // if(!chat) {
-        //     return res.status(400).json({ error: true, message: 'Chat not found' });
-        // }
-
         await Chat.findByIdAndDelete(req.params.id);
 
         res.status(200).json({ error: false, message: "Chat deleted successfully" });
@@ -163,13 +184,13 @@ async function unBlockUser(req, res) {
         otherUser.blockedBy = otherUser.blockedBy.filter(id => id.toString() !== userId.toString());
         await otherUser.save();
 
-        res.status(200).json({ error: false, user, otherUser })
+        res.status(200).json({ error: false, user })
     } catch (error) {
         res.status(500).json({ error: true, message: error.message })
     }
 }
 
-export { sendMessage, getMessages, getChats, getAllUsers, deleteChat, blockUser, unBlockUser }
+export { sendMessage, getMessages, getChats, getAllUsers, deleteChat, blockUser, unBlockUser, editMessage, deleteMessage }
 
 //                           ^..^      /
 //                           /_/\_____/

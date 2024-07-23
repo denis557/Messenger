@@ -30,12 +30,19 @@
 }
 
 .blocked {
+    align-self: center;
     width: 31.25vw;
     height: 7.55124vh;
     border-radius: 0.52083vw;
+    background-color: #3F3F3F;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
+}
+
+.blocked p {
+    text-align: center;
     font-size: 1.666vw;
     color: #F34848;
 }

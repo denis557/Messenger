@@ -51,6 +51,22 @@ function Header() {
     }
   }
 
+  const handleUnblockUser = async () => {
+    try {
+      const res = await fetch(`/api/message/unBlockUser/${selectedUser.userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+      });
+
+      const data = await res.json();
+      localStorage.setItem('user-threads', JSON.stringify(data))
+    } catch (error: any) {
+      console.log(error.message)
+    }
+  }
+
   return(
     <div className='header'>
       {selectedUser.userId !== currentUser?.user?._id ? 
@@ -63,8 +79,8 @@ function Header() {
                 <p className='header_status'>{selectedUser.userId ? onlineUsers.includes(selectedUser.userId) ? 'Online' : 'Offline' : 'Last seen recently'}</p>
               </div>
             </div>
-            <button className='unblock'>Unblock user</button>
             <div className='header_icons'>
+              {currentUser.user.blockedUsers.includes(selectedUser.userId) && <button onClick={handleUnblockUser} className='unblock'>Unblock user</button>}
               <Search />
               <button onClick={displayMenu} className='more_btn'>
                 <More />

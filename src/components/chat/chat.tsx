@@ -132,11 +132,13 @@ function Chat() {
                         <p>Loading...</p>
                     :
                         <>
-                            {(currentUser.user || currentUser.newUser).blockedUsers.includes(selectedUser.userId) ? 
+                            {currentUser.user.blockedUsers.includes(selectedUser.userId) ? 
                                 ''
                             : 
-                                (currentUser.user || currentUser.newUser).blockedBy.includes(selectedUser.userId) ?
-                                    <div className='blocked'>You are blocked by this user!</div>
+                                currentUser.user.blockedBy.includes(selectedUser.userId) ?
+                                    <div className='blocked'>
+                                        <p>You are blocked by this user!</p>
+                                    </div>
                                 :
                                     <MessageInput setMessages={setMessages} />
                             }

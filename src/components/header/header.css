@@ -100,4 +100,7 @@
     height: 5.39374vh;
     background-image: linear-gradient(to bottom left, #CBA4FF, #6F20D2);
     border-radius: 0.52083vw;
+    border: none;
+    color: #fff;
+    font-size: 1.25vw;
 }
