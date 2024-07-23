@@ -64,7 +64,17 @@
 
 .chat_menu {
     width: 10.9375vw;
-    height: 14.0237vh;
+    /* height: 14.0237vh; */
+    background-color: rgba(58, 58, 58, 97%);
+    position: absolute;
+    border-radius: 0.260416vw;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
+    backdrop-filter: blur(4px);
+}
+
+.contexify.chat_menu {
+    width: 10.9375vw;
+    /* height: 14.0237vh; */
     background-color: rgba(58, 58, 58, 97%);
     position: absolute;
     border-radius: 0.260416vw;
@@ -78,6 +88,20 @@
     margin-left: 0.52083vw;
     margin-top: 0.53937vh;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contexify.chat_menu_item {
+    font-size: 0.9375vw;
+    color: white;
+    margin-left: 0.52083vw;
+    margin-top: 0.53937vh;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .chat_menu_item p {

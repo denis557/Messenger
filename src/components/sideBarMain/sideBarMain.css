@@ -48,7 +48,41 @@
     backdrop-filter: blur(4px);
 }
 
+
+.contexify.sidebar_menu {
+    width: 10.9375vw;
+    /* height: 17.7993vh; */
+    height: fit-content;
+    background-color: rgba(58, 58, 58, 97%);
+    position: absolute;
+    border-radius: 0.260416vw;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
+    backdrop-filter: blur(4px);
+}
+
+.contexify.sidebar_menu.contexify_willEnter-fade {
+    width: 10.9375vw;
+    /* height: 17.7993vh; */
+    height: fit-content;
+    background-color: rgba(58, 58, 58, 97%);
+    position: absolute;
+    border-radius: 0.260416vw;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
+    backdrop-filter: blur(4px);
+}
+
 .sidebar_menu_item {
+    font-size: 0.9375vw;
+    color: white;
+    margin-left: 0.52083vw;
+    margin-top: 0.53937vh;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.contexify.sidebar_menu_item {
     font-size: 0.9375vw;
     color: white;
     margin-left: 0.52083vw;
@@ -56,7 +90,23 @@
     cursor: pointer;
 }
 
+.contexify.sidebar_menu_item:hover {
+    background-color: #CACACA;
+}
+
+.contexify.itemContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .contexify_itemContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.itemContent {
     display: flex;
     flex-direction: row;
     align-items: center;

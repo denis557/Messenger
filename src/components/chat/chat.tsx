@@ -5,6 +5,7 @@ import { setChats, sortChats } from '../chat/chatSlice';
 import Message from '../message/message';
 import MessageInput from '../messageInput/messageInput';
 import { useSocket } from '../../../server/context/socketContext';
+import MessageMenu from '../messageMenu/messageMenu';
 
 function Chat() {
     const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
@@ -153,6 +154,7 @@ function Chat() {
                     :
                         ''}
             </div>
+            <MessageMenu />
         </div>
     )
 }

@@ -11,6 +11,7 @@ import { Block } from '../../assets/Block';
 import { Delete } from '../../assets/Delete';
 import { useState } from 'react';
 import DeleteChatModal from '../deleteChatModal/deleteChatModal';
+import 'react-contexify/ReactContexify.css';
 
 const CHAT_MENU_ID = 'chat_menu_id';
 
@@ -45,6 +46,12 @@ function Header() {
       });
 
       const data = await res.json();
+
+      if(data.error) {
+        console.log(data)
+        return 
+      }
+
       localStorage.setItem('user-threads', JSON.stringify(data))
     } catch (error: any) {
       console.log(error.message);
@@ -104,8 +111,8 @@ function Header() {
 
       {isDeleteChatOpen && <DeleteChatModal setIsDeleteChatOpen={setIsDeleteChatOpen} />}
 
-      <Menu id={CHAT_MENU_ID} className='chat_menu' animation={null} >
-        <Item onClick={handleItemClick} className='chat_menu_item'>
+      <Menu id={CHAT_MENU_ID} className='chat_menu' animation='fade' >
+        {/* <Item onClick={handleItemClick} className='chat_menu_item'>
           <Select />
           <p>Select messages</p>
         </Item>
@@ -117,7 +124,20 @@ function Header() {
         <Item onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_item'>
           <Delete />
           <p className='chat_menu_red_p'>Delete chat</p>
-        </Item>
+        </Item> */}
+        <div onClick={handleItemClick} className='chat_menu_item'>
+          <Select />
+          <p>Select messages</p>
+        </div>
+        <div onClick={handleBlockUser} className='chat_menu_item'>
+          <Block />
+          <p>Block user</p>
+        </div>
+        <Separator />
+        <div onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_item'>
+          <Delete />
+          <p className='chat_menu_red_p'>Delete chat</p>
+        </div>
       </Menu>
     </div>
   )
