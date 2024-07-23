@@ -132,7 +132,15 @@ function Chat() {
                         <p>Loading...</p>
                     :
                         <>
-                            <MessageInput setMessages={setMessages} />
+                            {(currentUser.user || currentUser.newUser).blockedUsers.includes(selectedUser.userId) ? 
+                                ''
+                            : 
+                                (currentUser.user || currentUser.newUser).blockedBy.includes(selectedUser.userId) ?
+                                    <div className='blocked'>You are blocked by this user!</div>
+                                :
+                                    <MessageInput setMessages={setMessages} />
+                            }
+                            {/* <MessageInput setMessages={setMessages} /> */}
                             <div className='message_section' ref={messageRef}>  
                                 {messages.map((message, index) => <Message message={message} key={index} />)}
                             </div>

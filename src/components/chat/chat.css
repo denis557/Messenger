@@ -23,9 +23,19 @@
     flex-direction: column;
     gap: 2.15749vh;
     margin-bottom: 2.15749vh;
-    offset: ;
 }
 
 .message_section::-webkit-scrollbar {
     visibility: hidden;
+}
+
+.blocked {
+    width: 31.25vw;
+    height: 7.55124vh;
+    border-radius: 0.52083vw;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    font-size: 1.666vw;
+    color: #F34848;
 }

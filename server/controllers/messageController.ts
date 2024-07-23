@@ -123,4 +123,55 @@ async function deleteChat(req, res) {
     }
 }
 
-export { sendMessage, getMessages, getChats, getAllUsers, deleteChat }
+async function blockUser(req, res) {
+    const { otherUserId } = req.params;
+    const userId = req.user._id;
+    try {
+        const user = await User.findById(userId);
+        if(!user) return res.status(400).json({ error: true, message: 'User not found'});
+
+        const otherUser = await User.findById(otherUserId);
+        if(!otherUser) return res.status(400).json({ error: true, message: 'Other user not found'});
+
+        if(user.blockedUsers.includes(otherUserId)) res.status(400).json({ error: true, message: 'User is already blocked' });
+
+        user.blockedUsers.push(otherUserId);
+        await user.save();
+
+        otherUser.blockedBy.push(userId);
+        await otherUser.save();
+
+        res.status(200).json({ error: false, user})
+    } catch (error) {
+        res.status(500).json({ error: true, message: error.message })
+    }
+}
+
+async function unBlockUser(req, res) {
+    const { otherUserId } = req.params;
+    const userId = req.user._id;
+    try {
+        const user = await User.findById(userId);
+        if(!user) return res.status(400).json({ error: true, message: 'User not found'});
+
+        const otherUser = await User.findById(otherUserId);
+        if(!otherUser) return res.status(400).json({ error: true, message: 'Other user not found'});
+
+        user.blockedUsers = user.blockedUsers.filter(id => id.toString() !== otherUserId.toString());
+        await user.save();
+        
+        otherUser.blockedBy = otherUser.blockedBy.filter(id => id.toString() !== userId.toString());
+        await otherUser.save();
+
+        res.status(200).json({ error: false, user, otherUser })
+    } catch (error) {
+        res.status(500).json({ error: true, message: error.message })
+    }
+}
+
+export { sendMessage, getMessages, getChats, getAllUsers, deleteChat, blockUser, unBlockUser }
+
+//                           ^..^      /
+//                           /_/\_____/
+//                              /\   /\
+//                             /  \ /  \

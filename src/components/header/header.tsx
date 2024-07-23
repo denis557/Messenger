@@ -33,7 +33,23 @@ function Header() {
     show({
       event: e,
     });
-}
+  }
+
+  const handleBlockUser = async () => {
+    try {
+      const res = await fetch(`/api/message/blockUser/${selectedUser.userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+      });
+
+      const data = await res.json();
+      localStorage.setItem('user-threads', JSON.stringify(data))
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }
 
   return(
     <div className='header'>
@@ -47,6 +63,7 @@ function Header() {
                 <p className='header_status'>{selectedUser.userId ? onlineUsers.includes(selectedUser.userId) ? 'Online' : 'Offline' : 'Last seen recently'}</p>
               </div>
             </div>
+            <button className='unblock'>Unblock user</button>
             <div className='header_icons'>
               <Search />
               <button onClick={displayMenu} className='more_btn'>
@@ -76,7 +93,7 @@ function Header() {
           <Select />
           <p>Select messages</p>
         </Item>
-        <Item onClick={handleItemClick} className='chat_menu_item'>
+        <Item onClick={handleBlockUser} className='chat_menu_item'>
           <Block />
           <p>Block user</p>
         </Item>

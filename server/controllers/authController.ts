@@ -6,20 +6,20 @@ const bcrypt = require('bcrypt');
 const signup = async (req, res) => {
     try {
         const { name, email, password, username, bio } = req.body;
-        const user = await User.findOne({$or:[{email}, {username}]});
+        const userReq = await User.findOne({$or:[{email}, {username}]});
 
         if(!name || !email || !password || !username) {
             return res.status(400).json({ error: true, message: 'Fill required fields!'});
         }
 
-        if(user) {
+        if(userReq) {
             return res.status(400).json({error: true, message: 'User with this email or username already exists'});
         }
 
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const newUser = new User({
+        const user = new User({
             name,
             email,
             password: hashedPassword,
@@ -27,22 +27,22 @@ const signup = async (req, res) => {
             bio
         });
 
-        await newUser.save();
+        await user.save();
 
         const chat = new Chat({
-            members: [ newUser._id ],
+            members: [ user._id ],
             lastMessage: {
                 text: '',
-                sender: newUser._id
+                sender: user._id
             }
         });
 
         await chat.save();
 
-        if(newUser) {
-            generateJwtAndSetCookie(newUser._id, res);
+        if(user) {
+            generateJwtAndSetCookie(user._id, res);
             return res.status(201).json({
-                newUser,
+                user,
             })
         } else {
             return res.status(400).json({ error: true, message: 'Invalid user data'});
@@ -102,7 +102,7 @@ async function updateProfile(req, res) {
 
         res.status(200).json({ user })
     } catch (error) {
-        res.status(500).json({ error: true, message: error.message})
+        res.status(500).json({ error: true, message: error.message })
     }
 }
 

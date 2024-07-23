@@ -45,6 +45,7 @@
 .delete_chat_delete {
   color: #F34848;
   font-size: 1.66vw;
+  cursor: pointer;
 }
 
 .delete_chat_cancel {

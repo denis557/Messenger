@@ -94,3 +94,10 @@
     width: 100%;
     margin-top: 0.53937vh;
 }
+
+.unblock {
+    width: 9.375vw;
+    height: 5.39374vh;
+    background-image: linear-gradient(to bottom left, #CBA4FF, #6F20D2);
+    border-radius: 0.52083vw;
+}
