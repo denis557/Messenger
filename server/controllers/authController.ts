@@ -86,5 +86,25 @@ const logout = async (req, res) => {
     }
 }
 
+async function updateProfile(req, res) {
+    const { name, about, id, email } = req.body;
+    const userId = req.user._id
+    try {
+        let user = await User.findById(userId);
+        if(!user) return res.status(400).json({ error: true, message: 'User not found'})
 
-export { signup, login, logout }
+        user.name = name || user.name;
+        user.email = email || user.email;
+        user.username = id || user.username;
+        user.bio = about || user.bio;
+
+        user = await user.save();
+
+        res.status(200).json({ user })
+    } catch (error) {
+        res.status(500).json({ error: true, message: error.message})
+    }
+}
+
+
+export { signup, login, logout, updateProfile }

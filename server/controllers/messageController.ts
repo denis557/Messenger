@@ -107,4 +107,20 @@ async function getAllUsers(req, res) {
     }
 }
 
-export { sendMessage, getMessages, getChats, getAllUsers }
+async function deleteChat(req, res) {
+    try {
+        // const chat = await Chat.findById(req.params.id);
+
+        // if(!chat) {
+        //     return res.status(400).json({ error: true, message: 'Chat not found' });
+        // }
+
+        await Chat.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({ error: false, message: "Chat deleted successfully" });
+    } catch (error) {
+       res.status(500).json({ error: true, message: error}) 
+    }
+}
+
+export { sendMessage, getMessages, getChats, getAllUsers, deleteChat }

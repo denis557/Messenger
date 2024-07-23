@@ -8,12 +8,19 @@
     justify-content: center;
 }
 
-.sideBar_header p {
+.settings_title {
     color: #fff;
     margin-left: 0.78125vw;
     font-size: 1.45833vw;
     font-weight: 400;
     align-self: center;
+}
+
+.settings_tip {
+    color: #D3D3D3;
+    font-size: 0.8333vw;
+    margin-left: 0.5208vw;
+    align-self: flex-end;
 }
 
 .sideBar_setting_main {
@@ -48,4 +55,92 @@
     margin-top: auto;
     margin-left: 1.04166vw;
     margin-bottom: 1.6181vh;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+}
+
+.sideBar_settings_inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 2.1574vh;
+    margin-top: 3.23624vh;
+    margin-left: 1.30208vw;
+}
+
+.sideBar_settings_div {
+    display: flex;
+    flex-direction: row;
+    gap: 0.78125vw;
+    align-items: center;
+}
+
+.settings_div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2157vh;
+    width: 75%;
+}
+
+.settings_div p {
+    color: #D3D3D3;
+    font-size: 1.1458vw;
+    margin-left: 0.10416vw;
+}
+
+.settings_div input {
+    width: 100%;
+    height: fit-content;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.6666vw;
+    color: #fff;
+    word-break: break-all;
+}
+
+.settings_div textarea {
+    width: 100%;
+    height: 4.17789vh;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.6666vw;
+    color: #fff;
+    resize: none;
+}
+
+.settings_error {
+    font-size: 1.04166vw;
+    color: #F34848;
+}
+
+.sideBar_settings_logout {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: 0.78125vw;
+    align-items: center;
+    margin-left: 1.30208vw;
+    margin-top: auto;
+    border-radius: 0.260416vw;
+    background-color: transparent;
+}
+
+.sideBar_settings_logout p {
+    color: #F34848;
+    font-size: 1.6666vw;
+}
+
+.setting_save {
+    width: 4.1666vw;
+    height: 3.8834vh;
+    border-radius: 0.15625vw;
+    border: none;
+    background-image: linear-gradient(to bottom left, #D8C0F8, #6F20D2);
+    color: #fff;
+    font-size: 1.0416vw;
+    margin-left: 1.5625vw;
+    align-self: center;
 }

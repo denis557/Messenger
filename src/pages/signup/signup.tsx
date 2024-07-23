@@ -61,7 +61,7 @@ function Signup({ onSignup }: any) {
                     <input type={isShowPassword ? 'text' : 'password'} className='password_input' placeholder='Password' value={inputs.password} onChange={e => setInputs({ ...inputs, password: e.target.value})} />
                     <Eye isShowPassword={isShowPassword} setIsShowPassword={setIsShowPassword} />
                 </div>
-                <input type='text' className='text_input' placeholder='Username' value={inputs.username} onChange={e => setInputs({ ...inputs, username: e.target.value})} />
+                <input max='10' type='text' className='text_input' placeholder='Id' value={inputs.username} onChange={e => setInputs({ ...inputs, username: e.target.value})} />
                 <div className='auth_btn_div'>
                     <button className='auth_btn prev' onClick={() => setSlideIndex(0)}>
                         <Prev />

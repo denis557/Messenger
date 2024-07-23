@@ -23,6 +23,9 @@ function App() {
         <Route path='/' element={user ? <Main /> : <Navigate to='/signup' />} />
         <Route path='/login' element={!user ? <Login onLogin={(user: any) => setUser(user)} /> : <Navigate to='/' />} />
         <Route path='/signup' element={!user ? <Signup onSignup={(user: any) => setUser(user)} /> : <Navigate to='/' />} />
+        {/* <Route path='/' element={currentUser && ((currentUser?.user || currentUser?.newUser)._id) ? <Main /> : <Navigate to='/signup' />} />
+        <Route path='/login' element={!currentUser ? <Login /> : <Navigate to='/' />} />
+        <Route path='/signup' element={!currentUser ? <Signup /> : <Navigate to='/' />} /> */}
       </Routes>
     </BrowserRouter>
   )
