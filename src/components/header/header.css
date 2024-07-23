@@ -41,3 +41,50 @@
     color: #D3D3D3;
     font-size: 0.78125vw;
 }
+
+.more_btn {
+    border: none;
+    background-color: transparent;
+}
+
+.header_icons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.604166vw;
+    margin-right: 2.0833vw;
+    margin-left: auto;
+}
+
+.chat_menu {
+    width: 10.9375vw;
+    height: 14.0237vh;
+    background-color: rgba(58, 58, 58, 97%);
+    position: absolute;
+    border-radius: 0.260416vw;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
+    backdrop-filter: blur(4px);
+}
+
+.chat_menu_item {
+    font-size: 0.9375vw;
+    color: white;
+    margin-left: 0.52083vw;
+    margin-top: 0.53937vh;
+    cursor: pointer;
+}
+
+.chat_menu_item p {
+    margin-left: 0.52083vw;
+}
+
+.chat_menu_red_p {
+    color: #F34848;
+}
+
+.contexify_separator {
+    background-color: #CACACA;
+    height: 0.5px;
+    width: 100%;
+    margin-top: 0.53937vh;
+}

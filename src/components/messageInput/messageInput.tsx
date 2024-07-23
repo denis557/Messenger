@@ -49,7 +49,7 @@ function MessageInput({ setMessages }) {
         } finally {
           dispatch(sortChats());
         }
-      };
+    };
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -74,7 +74,7 @@ function MessageInput({ setMessages }) {
             dispatch(setChats(updateChats(data)));
             dispatch(sortChats());
             dispatch(setPage({page: 'main'}));
-            getChats();
+            await getChats();
             const selectedChat = searchedUser.searchedUser?._id ? chats.find(chat => chat.members[0]?._id === searchedUser.searchedUser?._id) : '';
             searchedUser.searchedUser?._id && dispatch(selectUser({ selectedUser: {_id: selectedChat?._id, userId: selectedChat?.members[0]._id, username: selectedChat?.members[0].name} }));
             dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));

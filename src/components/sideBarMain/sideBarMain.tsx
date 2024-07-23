@@ -4,20 +4,70 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setPage } from '../sideBar/sideBarSlice';
 import SavedMessages from '../savedMessages/savedMessages';
+import { Menu, Item, useContextMenu } from 'react-contexify';
+import { Settings } from '../../assets/Settings';
+import { Info } from '../../assets/Info';
+import { Moon } from '../../assets/Moon';
+import { SavedMenu } from '../../assets/SavedMenu';
+import { MenuSidebar } from '../../assets/MenuSidebar';
+import { selectUser } from '../user/userSlice';
+import { setSearchedUser } from '../chat/searchedUserSlice';
+
+const SIDEBAR_MENU_ID = 'sidebar_menu_id';
 
 function SideBarMain() {
+    const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
     const { chats } = useSelector((state: any) => state.chat);
+    const savedMessages = chats.find(chat => !chat.members.length);
     const dispatch = useDispatch();
+
+    const { show } = useContextMenu({
+        id: SIDEBAR_MENU_ID
+    });
+
+    function handleItemClick({ event, props, triggerEvent, data }){
+        console.log(event, props, triggerEvent, data );
+    }
+
+    function displayMenu(e){
+        show({
+          event: e,
+        });
+    }
 
     return (
         <>
             <div className='sideBar_header'>
-                <svg className='menu_btn' width="44" height="30" viewBox="0 0 44 30" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M2 2H42" stroke="#CACACA" strokeWidth="3.5" strokeLinecap="round"/> <path d="M2 15H42" stroke="#CACACA" strokeWidth="3.5" strokeLinecap="round"/> <path d="M2 28H42" stroke="#CACACA" strokeWidth="3.5" strokeLinecap="round"/></svg>
+                <button onClick={displayMenu} className='menu_btn'>
+                    <MenuSidebar />
+                </button>
                 <input className='sideBar_search' onClick={() => dispatch(setPage({page: 'search'}))} />
             </div>
             <div className='sideBar_main'>
-                {chats.map((chat: any, index: number) => chat.members.length ? <User chat={chat} key={index} /> : <SavedMessages chat={chat} key={index} isHeader={false} />)}
+                {chats.map((chat: any, index: number) => chat.members.length ? <User chat={chat} key={index} /> : <SavedMessages chat={chat} key={index} />)}
             </div>
+
+            <Menu id={SIDEBAR_MENU_ID} className='sidebar_menu' animation={null}>
+                <Item onClick={() => {
+                    dispatch(selectUser({ selectedUser: {_id: savedMessages._id, userId: currentUser?.user?._id, username: 'Saved'} }));
+                    dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));
+                }} className='sidebar_menu_item'>
+                    <SavedMenu />
+                    <p>Saved messages</p>
+                </Item>
+                <Item onClick={handleItemClick} className='sidebar_menu_item'>
+                    <Moon />
+                    <p>Dark mode</p>
+                </Item>
+                <Item onClick={() => dispatch(setPage({page: 'settings'}))} className='sidebar_menu_item'>
+                    <Settings />
+                    <p>Settings</p>
+                </Item>
+                <Item onClick={handleItemClick} className='sidebar_menu_item'>
+                    <Info />
+                    <p>Info</p>
+                </Item>
+            </Menu>
         </>
     )
 }

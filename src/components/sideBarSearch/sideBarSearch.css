@@ -58,7 +58,8 @@
 }
 
 .sideBar_search_hr {
-    width: 20.8333vw;
+    /* width: 20.8333vw; */
+    width: 20.61vw;
     height: 1px;
     background-color: #CACACA;
     border: none;

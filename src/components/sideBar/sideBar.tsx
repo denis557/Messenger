@@ -2,6 +2,7 @@ import './sideBar.css';
 import SideBarMain from '../sideBarMain/sideBarMain';
 import SideBarSearch from '../sideBarSearch/sideBarSearch';
 import { useSelector } from 'react-redux';
+import SideBarSettings from '../sideBarSettings/sideBarSettings';
 
 function SideBar({ loadingChats }) {
   const { page } = useSelector(state => state.page);
@@ -17,7 +18,9 @@ function SideBar({ loadingChats }) {
         page === 'search' ?
           <SideBarSearch />
         :
-        ''
+        page === 'settings' ?
+          <SideBarSettings />
+        : ''
       }
     </div>
   )
