@@ -1,0 +1,36 @@
+.contexify.message_menu {
+    /* width: 10.9375vw; */
+    width: 160px;
+    /* height: 14.0237vh; */
+    background-color: rgba(58, 58, 58, 97%);
+    position: absolute;
+    border-radius: 0.260416vw;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
+    backdrop-filter: blur(4px);
+    overflow: hidden;
+}
+
+/* .contexify.message_menu.contexify_willEnter-fade {
+    width: 10.9375vw;
+    height: 14.0237vh;
+    background-color: rgba(58, 58, 58, 97%);
+    position: absolute;
+    border-radius: 0.260416vw;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
+    backdrop-filter: blur(4px);
+}
+
+.message_menu {
+    width: 10.9375vw;
+    height: 14.0237vh;
+    background-color: rgba(58, 58, 58, 97%);
+    position: absolute;
+    border-radius: 0.260416vw;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
+    backdrop-filter: blur(4px);
+} */
+
+.message_menu_item {
+    /* width: 50px; */
+    background-color: brown;
+}

@@ -6,6 +6,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    overflow: auto;
 }
 
 .settings_title {
@@ -20,7 +21,7 @@
     color: #D3D3D3;
     font-size: 0.8333vw;
     margin-left: 0.5208vw;
-    align-self: flex-end;
+    align-self: center;
 }
 
 .sideBar_setting_main {
@@ -30,7 +31,7 @@
     flex-direction: column;
 }
 
-.sideBar_setting_avatar {
+.sideBar_setting_noavatar {
     width: 20.7vw;
     height: 19.687168vw;
     background-image: linear-gradient(to bottom left, #FF3535, #FF9393);
@@ -40,6 +41,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.sideBar_setting_avatar {
+    width: 20.7vw;
+    height: 19.687168vw;
+    display: flex;
+    color: #fff;
+    margin-inline: -0.572916vw;
+    flex-direction: column;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* align-items: center;
+    justify-content: center; */
 }
 
 .avatar_firstLetter {

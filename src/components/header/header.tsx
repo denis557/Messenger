@@ -38,7 +38,7 @@ function Header() {
 
   const handleBlockUser = async () => {
     try {
-      const res = await fetch(`/api/message/blockUser/${selectedUser.userId}`, {
+      const res = await fetch(`/api/message/blockUser/${selectedUser.userId || searchedUser.searchedUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
@@ -60,7 +60,7 @@ function Header() {
 
   const handleUnblockUser = async () => {
     try {
-      const res = await fetch(`/api/message/unBlockUser/${selectedUser.userId}`, {
+      const res = await fetch(`/api/message/unBlockUser/${selectedUser.userId || searchedUser.searchedUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-type': 'application/json'
@@ -80,14 +80,17 @@ function Header() {
         (selectedUser.userId || searchedUser.searchedUser?._id) && 
           <>
             <div className='header_user'>
-              <div className='header_avatar'>{firstLetter(selectedUser.username || searchedUser.searchedUser?.name)}</div>
+              {selectedUser.avatar || searchedUser.searchedUser?.avatar ?
+                <img src={selectedUser.avatar || searchedUser.searchedUser?.avatar} className='header_avatar' />
+              :
+                <div className='header_noavatar'>{firstLetter(selectedUser.username || searchedUser.searchedUser?.name)}</div>}
               <div>
                 <p className='header_username'>{selectedUser.username || searchedUser.searchedUser?.name}</p>
                 <p className='header_status'>{selectedUser.userId ? onlineUsers.includes(selectedUser.userId) ? 'Online' : 'Offline' : 'Last seen recently'}</p>
               </div>
             </div>
             <div className='header_icons'>
-              {currentUser.user.blockedUsers.includes(selectedUser.userId) && <button onClick={handleUnblockUser} className='unblock'>Unblock user</button>}
+              {currentUser.user.blockedUsers.includes(selectedUser.userId || searchedUser.searchedUser._id) && <button onClick={handleUnblockUser} className='unblock'>Unblock user</button>}
               <Search />
               <button onClick={displayMenu} className='more_btn'>
                 <More />
@@ -97,7 +100,7 @@ function Header() {
       :
         <>
           <div className='header_user'>
-            <div className='header_avatar saved'><Saved isHeader={true} /></div>
+            <div className='header_noavatar saved'><Saved isHeader={true} /></div>
             <p className='header_username'>Saved</p>
           </div>
           <div className='header_icons'>

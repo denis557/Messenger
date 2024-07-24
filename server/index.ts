@@ -1,4 +1,5 @@
 import { app, server } from './socket/socket'
+import { v2 as cloudinary } from 'cloudinary'
 
 const authRouter = require('./routes/authRoutes');
 const messageRouter = require('./routes/messageRouter');
@@ -12,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 
 const cors = require('cors');
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 
 mongoose.connect(process.env.MONGO_URL!);
@@ -24,6 +25,12 @@ db.once('open', () => {
         console.log('server started');
     })
 })
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 app.use('/api/auth', authRouter);
 app.use('/api/message', messageRouter);

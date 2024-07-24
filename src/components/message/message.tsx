@@ -3,6 +3,7 @@ import { changeTimeZone } from '../../helpers/changeTimeZone';
 import Seen from '../../assets/Seen'
 import Unseen from '../../assets/Unseen'
 import { useContextMenu } from 'react-contexify';
+import 'react-contexify/ReactContexify.css'
 
 const MESSAGE_MENU_ID = 'message_menu_id';
 

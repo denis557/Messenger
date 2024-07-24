@@ -32,7 +32,7 @@ function DeleteChatModal({ setIsDeleteChatOpen }) {
                 console.log(data.message);
                 return
             }
-            dispatch(selectUser({ selectedUser: {_id: '', userId: '', username: ''} }));
+            dispatch(selectUser({ selectedUser: { _id: '', userId: '', username: '', avatar: '' } }));
             getChats();
             setIsDeleteChatOpen(false)
         } catch (error) {

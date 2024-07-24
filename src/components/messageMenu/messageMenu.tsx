@@ -1,26 +1,36 @@
 import './messageMenu.css'
-import { Menu } from 'react-contexify';
+import { Menu, Item } from 'react-contexify';
 import 'react-contexify/ReactContexify.css'
+import { useDispatch } from 'react-redux';
+import { setChats } from '../chat/chatSlice';
 
 const MESSAGE_MENU_ID = 'message_menu_id';
 
 function MessageMenu() {
+    const dispatch = useDispatch();
+
     const handleItemClick = ({ event, props, triggerEvent, data }) => {
         console.log(event, props, triggerEvent, data);
     };
 
     return(
         <Menu id={MESSAGE_MENU_ID} animation='fade' className='message_menu'>
-            {/* <Item onClick={handleItemClick}>
-                <p>Option 1</p>
+            <Item onClick={handleItemClick} className='message_menu_item'>
+                <p>Reply</p>
             </Item>
-            <Item onClick={handleItemClick}>
-                <p>Option 2</p>
+            <Item hidden={({props}) => !props.isOwnMessage} onClick={handleItemClick} className='message_menu_item'>
+                <p>Edit</p>
             </Item>
-            <Item onClick={handleItemClick}>
-                <p>Option 3</p>
-            </Item> */}
-            <div onClick={handleItemClick}>
+            <Item onClick={handleItemClick} className='message_menu_item'>
+                <p>Copy text</p>
+            </Item>
+            <Item onClick={handleItemClick} className='message_menu_item'>
+                <p>Select</p>
+            </Item>
+            <Item onClick={handleItemClick} className='message_menu_item'>
+                <p>Delete</p>
+            </Item>
+            {/* <div onClick={handleItemClick}>
                 <p>Reply</p>
             </div>
             <div onClick={handleItemClick}>
@@ -34,7 +44,7 @@ function MessageMenu() {
             </div>
             <div onClick={handleItemClick}>
                 <p>Delete</p>
-            </div>
+            </div> */}
         </Menu>
     )
 }

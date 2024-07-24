@@ -4,7 +4,8 @@ export interface userInterface {
     selectedUser: {
         _id: string,
         userId: string,
-        username: string
+        username: string,
+        avatar: string
     }
 }
 
@@ -12,7 +13,8 @@ const initialState: userInterface = {
     selectedUser: {
         _id: '',
         userId: '',
-        username: ''
+        username: '',
+        avatar: ''
     }
 }
 
@@ -23,7 +25,8 @@ export const userSlice = createSlice({
         selectUser: (state, action: PayloadAction<userInterface>) => {
             state.selectedUser._id = action.payload.selectedUser._id;
             state.selectedUser.userId = action.payload.selectedUser.userId;
-            state.selectedUser.username = action.payload.selectedUser.username
+            state.selectedUser.username = action.payload.selectedUser.username;
+            state.selectedUser.avatar = action.payload.selectedUser.avatar;
         }
     }
 });

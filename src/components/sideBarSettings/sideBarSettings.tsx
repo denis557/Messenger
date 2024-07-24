@@ -6,8 +6,9 @@ import { firstLetter } from '../../helpers/firstLetter';
 import { About } from '../../assets/About';
 import { Id } from '../../assets/Id';
 import { Email } from '../../assets/Email';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Logout } from '../../assets/Logout';
+import usePreviewImg from '../../helpers/usePreviewImg';
 
 function SideBarSettings() {
     const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
@@ -19,9 +20,13 @@ function SideBarSettings() {
         name: currentUser.user.name,
         about: currentUser.user.bio,
         id: currentUser.user.username,
-        email: currentUser.user.email
+        email: currentUser.user.email,
+        avatar: currentUser.user.avatar
     });
     const [noChangesProvided, setNoChangesProvided] = useState(false);
+    const fileRef = useRef(null)
+
+    const { handleImgChange, imgUrl } = usePreviewImg();
 
     const handleEmailInput = (e) => {
         const newEmail = e.target.value
@@ -81,10 +86,16 @@ function SideBarSettings() {
                     name: userInfo.name,
                     about: userInfo.about,
                     id: userInfo.id,
-                    email: userInfo.email
+                    email: userInfo.email,
+                    avatar: currentUser.user.avatar !== userInfo.avatar ? imgUrl : ''
                 })
             })
             const data = await res.json();
+
+            if(data.error) {
+                console.log(data.message)
+                return
+            }
             localStorage.setItem('user-threads', JSON.stringify(data))
             dispatch(setPage({page: 'main'}))
         } catch (error: any) {
@@ -99,7 +110,7 @@ function SideBarSettings() {
                     const res = await fetch('/api/message/users');
                     const data = await res.json();
                     if(data.error) {
-                        console.log(data.error);
+                        console.log(data.message);
                         return
                     }
                     setUsers(data.users)
@@ -115,7 +126,9 @@ function SideBarSettings() {
         setNoChangesProvided((userInfo.name === currentUser.user.name) && 
         (userInfo.about === currentUser.user.bio) &&
         (userInfo.id === currentUser.user.username) &&
-        (userInfo.email === currentUser.user.email))
+        (userInfo.email === currentUser.user.email) &&
+        (userInfo.avatar === currentUser.user.avatar)
+    )
     }, [userInfo])
 
     return (
@@ -131,10 +144,22 @@ function SideBarSettings() {
                 </div>
             </div>
             <div className='sideBar_setting_main'>
-                <div className='sideBar_setting_avatar'>
-                    <p className='avatar_firstLetter'>{firstLetter(currentUser.user.name)}</p>
-                    <input className='avatar_name' type='text' value={userInfo.name} onChange={e => setUserInfo(u => ({ ...u, name: e.target.value}))} />
-                </div>
+                <input type='file' ref={fileRef} onChange={(e) => {handleImgChange(e); setUserInfo(u => ({ ...u, avatar: imgUrl }))}} className='file_input' />
+                {imgUrl ? 
+                    <div className='sideBar_setting_avatar' style={{ backgroundImage: `url(${imgUrl})`}} onClick={() => fileRef.current.click()}>
+                        <input className='avatar_name' type='text' value={userInfo.name} onChange={e => setUserInfo(u => ({ ...u, name: e.target.value}))} />
+                    </div>
+                :
+                    currentUser.user.avatar ? 
+                        <div className='sideBar_setting_avatar' style={{ backgroundImage: `url(${currentUser.user.avatar})`}} onClick={() => fileRef.current.click()}>
+                            <input className='avatar_name' type='text' value={userInfo.name} onChange={e => setUserInfo(u => ({ ...u, name: e.target.value}))} />
+                        </div>
+                    :
+                        <div className='sideBar_setting_noavatar' onClick={() => fileRef.current.click()}>
+                            <p className='avatar_firstLetter'>{firstLetter(currentUser.user.name)}</p>
+                            <input className='avatar_name' type='text' value={userInfo.name} onChange={e => setUserInfo(u => ({ ...u, name: e.target.value}))} />
+                        </div>
+                }
                 <div className='sideBar_settings_inputs'>
                     <div className='sideBar_settings_div'>
                         <About />

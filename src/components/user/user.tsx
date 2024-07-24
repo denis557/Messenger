@@ -16,19 +16,29 @@ function User({ chat }) {
 
   return (
     <div className={`user ${selectedUser._id === chat._id && 'active'}`} onClick={() => {
-      dispatch(selectUser({ selectedUser: {_id: chat._id, userId: chat.members[0]._id, username: chat.members[0].name} }));
+      dispatch(selectUser({ selectedUser: {_id: chat._id, userId: chat.members[0]._id, username: chat.members[0].name, avatar: chat.members[0].avatar} }));
       dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }))
     }}>
       {onlineUsers.includes(chat.members[0]._id) ? 
         <div className='siseBar_user_avatar_border'>
-          <div className='sideBar_user_avatar'>
-            {chat.members[0].avatar ? chat.members[0].avatar : firstLetter(chat.members[0].name)}
-          </div>
+          {chat.members[0].avatar ?
+           <img src={chat.members[0].avatar} className='sideBar_user_avatar' />
+          :
+            <div className='sideBar_user_noavatar'>
+              {firstLetter(chat.members[0].name)}
+            </div>
+          }
         </div>
       :
-        <div className='sideBar_user_avatar'>
-          {chat.members[0].avatar ? chat.members[0].avatar : firstLetter(chat.members[0].name)}
-        </div>
+        <>
+        {chat.members[0].avatar ?
+          <img src={chat.members[0].avatar} className='sideBar_user_avatar' />
+         :
+          <div className='sideBar_user_noavatar'>
+            {firstLetter(chat.members[0].name)}
+          </div>
+        }
+        </>
       }
       <div className='user_text'>
         <p className='user_name'>{chat.members[0].name}</p>

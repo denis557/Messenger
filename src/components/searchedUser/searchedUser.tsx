@@ -11,11 +11,15 @@ function SearchedUser({ user }) {
     return (
         <div className={`user ${searchedUser.searchedUser?._id === user._id ? 'active' : ''}`} onClick={() => {
             dispatch(setSearchedUser({ searchedUser: { _id: user._id, name: user.name, avatar: user.avatar } }));
-            dispatch(selectUser({ selectedUser: {_id: '', userId: '', username: ''} }));
+            dispatch(selectUser({ selectedUser: { _id: '', userId: '', username: '', avatar: '' } }));
             }}>
-            <div className='sideBar_user_avatar'>
-                {firstLetter(user.name)}
-            </div>
+            {user.avatar ?
+                <img src={user.avatar} className='sideBar_user_avatar' />
+            :
+                <div className='sideBar_user_noavatar'>
+                    {firstLetter(user.name)}
+                </div>
+            }
             <div className='user_text'>
                 <p className='user_name'>{user.name}</p>
                 <p className='user_lastMessage'>@{user.username}</p>

@@ -4,7 +4,8 @@ import { Prev } from '../../assets/Prev.tsx'
 import { Finish } from '../../assets/Finish.tsx'
 import { Eye } from '../../assets/Eye.tsx'
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import usePreviewImg from '../../helpers/usePreviewImg.ts'
 
 function Signup({ onSignup }: any) {
     const [slideIndex, setSlideIndex] = useState(0);
@@ -17,6 +18,9 @@ function Signup({ onSignup }: any) {
         password: '',
         username: ''
     });
+    const fileRef = useRef(null)
+
+    const { handleImgChange, imgUrl } = usePreviewImg();
 
     const handleSignup = async () => {
         try {
@@ -25,7 +29,7 @@ function Signup({ onSignup }: any) {
                 headers: {
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify(inputs)
+                body: JSON.stringify({ ...inputs, avatar: imgUrl})
             })
             const data = await res.json();
 
@@ -45,8 +49,8 @@ function Signup({ onSignup }: any) {
         <div className='auth_bg'>
             <div className={`signup_body ${slideIndex === 0 && 'active'}`}>
                 <h1>About you</h1>
-                <input type='file' id='file_input' />
-                <label htmlFor='file_input'></label>
+                <input type='file' ref={fileRef} className='file_input' onChange={handleImgChange} />
+                {imgUrl ? <img src={imgUrl} className='img_picked' onClick={() => fileRef.current.click()} /> : <div className='img_pick' onClick={() => fileRef.current.click()}></div>}
                 <input type='text' className='text_input' placeholder='Enter your name' value={inputs.name} onChange={e => setInputs({ ...inputs, name: e.target.value})} />
                 <input type='text' className='text_input' placeholder='Tell about you (optional)' value={inputs.bio} onChange={e => setInputs({ ...inputs, bio: e.target.value})} />
                 <button className='auth_btn' onClick={() => setSlideIndex(1)}>

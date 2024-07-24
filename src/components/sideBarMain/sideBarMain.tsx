@@ -30,8 +30,6 @@ function SideBarMain() {
         console.log(event, props, triggerEvent, data );
     }
 
-    
-
     function displayMenu(e){
         show({
           event: e,
@@ -71,7 +69,7 @@ function SideBarMain() {
                     <p>Info</p>
                 </Item> */}
                 <div onClick={() => {
-                    dispatch(selectUser({ selectedUser: {_id: savedMessages._id, userId: currentUser?.user?._id, username: 'Saved'} }));
+                    dispatch(selectUser({ selectedUser: {_id: savedMessages._id, userId: currentUser?.user?._id, username: 'Saved', avatar: ''} }));
                     dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));
                 }} className='sidebar_menu_item'>
                     <SavedMenu />
