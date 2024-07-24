@@ -115,7 +115,7 @@ function Header() {
       {isDeleteChatOpen && <DeleteChatModal setIsDeleteChatOpen={setIsDeleteChatOpen} />}
 
       <Menu id={CHAT_MENU_ID} className='chat_menu' animation='fade' >
-        {/* <Item onClick={handleItemClick} className='chat_menu_item'>
+        <Item className='chat_menu_item'>
           <Select />
           <p>Select messages</p>
         </Item>
@@ -124,11 +124,11 @@ function Header() {
           <p>Block user</p>
         </Item>
         <Separator />
-        <Item onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_item'>
+        <Item onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_delete'>
           <Delete />
-          <p className='chat_menu_red_p'>Delete chat</p>
-        </Item> */}
-        <div onClick={handleItemClick} className='chat_menu_item'>
+          <p>Delete chat</p>
+        </Item>
+        {/* <div onClick={handleItemClick} className='chat_menu_item'>
           <Select />
           <p>Select messages</p>
         </div>
@@ -137,10 +137,10 @@ function Header() {
           <p>Block user</p>
         </div>
         <Separator />
-        <div onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_item'>
+        <div onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_delete'>
           <Delete />
-          <p className='chat_menu_red_p'>Delete chat</p>
-        </div>
+          <p>Delete chat</p>
+        </div> */}
       </Menu>
     </div>
   )

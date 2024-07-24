@@ -49,8 +49,8 @@ function SideBarMain() {
             </div>
 
             <Menu id={SIDEBAR_MENU_ID} className='sidebar_menu' animation='fade'>
-                {/* <Item onClick={() => {
-                    dispatch(selectUser({ selectedUser: {_id: savedMessages._id, userId: currentUser?.user?._id, username: 'Saved'} }));
+            <Item onClick={() => {
+                    dispatch(selectUser({ selectedUser: {_id: savedMessages._id, userId: currentUser?.user?._id, username: 'Saved', avatar: ''} }));
                     dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));
                 }} className='sidebar_menu_item'>
                     <SavedMenu />
@@ -67,8 +67,8 @@ function SideBarMain() {
                 <Item onClick={handleItemClick} className='sidebar_menu_item'>
                     <Info />
                     <p>Info</p>
-                </Item> */}
-                <div onClick={() => {
+                </Item>
+                {/* <div onClick={() => {
                     dispatch(selectUser({ selectedUser: {_id: savedMessages._id, userId: currentUser?.user?._id, username: 'Saved', avatar: ''} }));
                     dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));
                 }} className='sidebar_menu_item'>
@@ -86,7 +86,7 @@ function SideBarMain() {
                 <div onClick={handleItemClick} className='sidebar_menu_item'>
                     <Info />
                     <p>Info</p>
-                </div>
+                </div> */}
             </Menu>
         </>
     )

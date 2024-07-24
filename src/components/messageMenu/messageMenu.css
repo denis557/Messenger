@@ -1,36 +1,63 @@
 .contexify.message_menu {
-    /* width: 10.9375vw; */
-    width: 160px;
-    /* height: 14.0237vh; */
+    /* width: 180px !important; */
     background-color: rgba(58, 58, 58, 97%);
     position: absolute;
     border-radius: 0.260416vw;
     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
     backdrop-filter: blur(4px);
     overflow: hidden;
+    padding: 0.53937vh 0.52083vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.53937vh;
 }
 
-/* .contexify.message_menu.contexify_willEnter-fade {
-    width: 10.9375vw;
-    height: 14.0237vh;
+.contexify.message_menu.contexify_willEnter-fade {
+    /* width: 180px !important; */
     background-color: rgba(58, 58, 58, 97%);
     position: absolute;
     border-radius: 0.260416vw;
     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
     backdrop-filter: blur(4px);
+    overflow: hidden;
+    padding: 0.53937vh 0.52083vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.53937vh;
 }
 
-.message_menu {
-    width: 10.9375vw;
-    height: 14.0237vh;
-    background-color: rgba(58, 58, 58, 97%);
-    position: absolute;
-    border-radius: 0.260416vw;
-    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
-    backdrop-filter: blur(4px);
-} */
+.contexify_itemContent {
+    /* width: 160px; */
+    width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: transparent;
+    gap: 0.52083vw;
+    font-size: 0.9375vw;
+    color: #fff;
+    padding: 0;
+}
 
-.message_menu_item {
-    /* width: 50px; */
-    background-color: brown;
+.contexify_item.message_menu_item {
+    /* width: 160px; */
+    width: 100% !important;
+}
+
+.contexify_item.message_menu_delete {
+    /* width: 160px; */
+    width: 100% !important;
+}
+
+.contexify_item.message_menu_item .contexify_itemContent:hover {
+    background-color: transparent;
+}
+
+.contexify_item.message_menu_delete .contexify_itemContent:hover {
+    background-color: transparent;
+    color: #F34848
+}
+
+.contexify_item.message_menu_delete .contexify_itemContent {
+    color: #F34848;
 }
