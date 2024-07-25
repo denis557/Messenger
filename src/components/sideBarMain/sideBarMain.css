@@ -36,7 +36,7 @@
 
 .sidebar_menu {
     width: 10.9375vw;
-    height: 17.7993vh;
+    /* height: 17.7993vh; */
     background-color: rgba(58, 58, 58, 97%);
     position: absolute;
     border-radius: 0.260416vw;
@@ -61,7 +61,11 @@
 }
 
 .contexify_item.sidebar_menu_item .contexify_itemContent:hover {
-    background-color: transparent;
+    background-color: #404040;
+}
+
+.contexify_itemContent:hover {
+    background-color: #404040;
 }
 
 .contexify_itemContent {

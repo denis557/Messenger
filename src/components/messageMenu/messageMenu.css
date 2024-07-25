@@ -50,11 +50,11 @@
 }
 
 .contexify_item.message_menu_item .contexify_itemContent:hover {
-    background-color: transparent;
+    background-color: #404040;
 }
 
 .contexify_item.message_menu_delete .contexify_itemContent:hover {
-    background-color: transparent;
+    background-color: #404040;
     color: #F34848
 }
 

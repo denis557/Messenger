@@ -13,4 +13,6 @@
     overflow: hidden;
     display: flex;
     flex-direction: row;
+    --contexify-activeItem-bgColor: #404040;
+    --contexify-menu-minWidth: 10vw;
 }
