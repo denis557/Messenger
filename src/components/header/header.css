@@ -121,7 +121,9 @@
 
 .contexify_separator {
     width: 100%;
-    background-color: #fff;
+    height: 0.5px;
+    border: none;
+    background-color: #CACACA;
     margin: 0;
 }
 

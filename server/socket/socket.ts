@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import { Message } from '../models/messageModel'
 import { Chat } from "../models/chatModel";
+import { User } from '../models/userModel'
 
 const http = require('http');
 const express = require('express');
@@ -15,14 +16,21 @@ const io = new Server(server, {
 })
 
 export const getRecipientSocketId = (recipientId) => userSocketMap[recipientId];
-const userSocketMap: { [key: string]: string } = {}
+// const userSocketMap: { [key: string]: string } = {}
+const userSocketMap = {}
 
 io.on("connection", (socket) => {
-	console.log("user connected", socket.id);
 	const userId = socket.handshake.query.userId as string;
 
 	if (userId != "undefined") userSocketMap[userId] = socket.id;
-	io.emit("getOnlineUsers", Object.keys(userSocketMap));
+	io.emit('getOnlineUsers', Object.keys(userSocketMap));
+
+	socket.on('userLoggedIn', (userId) => {
+        if (userId && userId !== "undefined") {
+            userSocketMap[userId] = socket.id;
+            io.emit('getOnlineUsers', Object.keys(userSocketMap));
+        }
+    });
 
 	socket.on('markMessagesAsSeen', async({ chatId, userId }) => {
 		try {
@@ -35,9 +43,8 @@ io.on("connection", (socket) => {
 	})
 
 	socket.on("disconnect", () => {
-		console.log("user disconnected");
 		delete userSocketMap[userId];
-		io.emit('getOnlineUsers', Object.keys(userSocketMap))
+		io.emit('getOnlineUsers', Object.keys(userSocketMap));
 	});
 });
 

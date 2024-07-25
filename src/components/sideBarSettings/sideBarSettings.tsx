@@ -17,11 +17,11 @@ function SideBarSettings() {
     const dispatch = useDispatch();
     const [users, setUsers] = useState([]);
     const [userInfo, setUserInfo] = useState({
-        name: currentUser.user.name,
-        about: currentUser.user.bio,
-        id: currentUser.user.username,
-        email: currentUser.user.email,
-        avatar: currentUser.user.avatar
+        name: currentUser.name,
+        about: currentUser.bio,
+        id: currentUser.username,
+        email: currentUser.email,
+        avatar: currentUser.avatar
     });
     const [noChangesProvided, setNoChangesProvided] = useState(false);
     const fileRef = useRef(null)
@@ -87,7 +87,7 @@ function SideBarSettings() {
                     about: userInfo.about,
                     id: userInfo.id,
                     email: userInfo.email,
-                    avatar: currentUser.user.avatar !== userInfo.avatar ? imgUrl : ''
+                    avatar: currentUser.avatar !== userInfo.avatar ? imgUrl : ''
                 })
             })
             const data = await res.json();
@@ -96,7 +96,8 @@ function SideBarSettings() {
                 console.log(data.message)
                 return
             }
-            localStorage.setItem('user-threads', JSON.stringify(data))
+            
+            localStorage.setItem('user-threads', JSON.stringify(data.user))
             dispatch(setPage({page: 'main'}))
         } catch (error: any) {
             console.log(error.message)   
@@ -123,11 +124,11 @@ function SideBarSettings() {
     }, [])
 
     useEffect(() => {
-        setNoChangesProvided((userInfo.name === currentUser.user.name) && 
-        (userInfo.about === currentUser.user.bio) &&
-        (userInfo.id === currentUser.user.username) &&
-        (userInfo.email === currentUser.user.email) &&
-        (userInfo.avatar === currentUser.user.avatar)
+        setNoChangesProvided((userInfo.name === currentUser.name) && 
+        (userInfo.about === currentUser.bio) &&
+        (userInfo.id === currentUser.username) &&
+        (userInfo.email === currentUser.email) &&
+        (userInfo.avatar === currentUser.avatar)
     )
     }, [userInfo])
 
@@ -150,13 +151,13 @@ function SideBarSettings() {
                         <input className='avatar_name' type='text' value={userInfo.name} onChange={e => setUserInfo(u => ({ ...u, name: e.target.value}))} />
                     </div>
                 :
-                    currentUser.user.avatar ? 
-                        <div className='sideBar_setting_avatar' style={{ backgroundImage: `url(${currentUser.user.avatar})`}} onClick={() => fileRef.current.click()}>
+                    currentUser.avatar ? 
+                        <div className='sideBar_setting_avatar' style={{ backgroundImage: `url(${currentUser.avatar})`}} onClick={() => fileRef.current.click()}>
                             <input className='avatar_name' type='text' value={userInfo.name} onChange={e => setUserInfo(u => ({ ...u, name: e.target.value}))} />
                         </div>
                     :
                         <div className='sideBar_setting_noavatar' onClick={() => fileRef.current.click()}>
-                            <p className='avatar_firstLetter'>{firstLetter(currentUser.user.name)}</p>
+                            <p className='avatar_firstLetter'>{firstLetter(currentUser.name)}</p>
                             <input className='avatar_name' type='text' value={userInfo.name} onChange={e => setUserInfo(u => ({ ...u, name: e.target.value}))} />
                         </div>
                 }

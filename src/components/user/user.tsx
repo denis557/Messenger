@@ -10,7 +10,7 @@ import Unseen from '../../assets/Unseen'
 
 function User({ chat }) {
   const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
-  const { onlineUsers } = useSocket();
+  const { socket, onlineUsers } = useSocket();
   const { selectedUser } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ function User({ chat }) {
         <p className='user_lastMessage'>{chat.lastMessage.text}</p>
       </div>
       <div className='user_lastMessage_info_div'>
-        {(currentUser.user || currentUser.newUser)._id === chat.lastMessage.sender ? chat.lastMessage.seen ? <Seen /> : <Unseen /> : ''}
+        {currentUser._id === chat.lastMessage.sender ? chat.lastMessage.seen ? <Seen /> : <Unseen /> : ''}
         <p className='user_lastMessage_time'>{changeTimeZone(chat.updatedAt)}</p>
       </div>
     </div>

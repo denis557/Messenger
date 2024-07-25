@@ -12,7 +12,7 @@ interface Member {
   avatar: string;
 }
 
-interface Chat {
+interface ChatInterface {
   _id: string;
   createdAt: string;
   lastMessage: LastMessage;
@@ -21,7 +21,7 @@ interface Chat {
 }
 
 export interface Chats {
-  chats: Chat[]
+  chats: ChatInterface[]
 }
 
 const initialState: Chats = {
@@ -32,7 +32,7 @@ export const chatSlice = createSlice({
   name: 'chats',
   initialState,
   reducers: {
-    setChats: (state, action: PayloadAction<Chat[]>) => {
+    setChats: (state, action: PayloadAction<ChatInterface[]>) => {
       state.chats = action.payload
     },
     sortChats: (state) => {

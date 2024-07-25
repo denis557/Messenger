@@ -12,7 +12,7 @@ function SavedMessages({ chat }) {
 
   return (
     <div className={`user ${selectedUser._id === chat._id && 'active'}`} onClick={() => {
-      dispatch(selectUser({ selectedUser: {_id: chat._id, userId: currentUser?.user?._id, username: 'Saved', avatar: ''} }));
+      dispatch(selectUser({ selectedUser: {_id: chat._id, userId: currentUser?._id, username: 'Saved', avatar: ''} }));
       dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }))
     }}>
     <div className='sideBar_saved_avatar'>

@@ -1,5 +1,5 @@
 import './header.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { firstLetter } from '../../helpers/firstLetter';
 import { useSocket } from '../../../server/context/socketContext';
 import { Saved } from '../../assets/Saved';
@@ -9,32 +9,45 @@ import { Menu, Item, useContextMenu, Separator } from 'react-contexify';
 import { Select } from '../../assets/Select';
 import { Block } from '../../assets/Block';
 import { Delete } from '../../assets/Delete';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DeleteChatModal from '../deleteChatModal/deleteChatModal';
 import 'react-contexify/ReactContexify.css';
+import { setChats } from '../chat/chatSlice';
 
 const CHAT_MENU_ID = 'chat_menu_id';
 
 function Header() {
-  const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user-threads")!));
   const { selectedUser } = useSelector(state => state.user);
   const { searchedUser } = useSelector(state => state.searchedUser);
   const {onlineUsers} = useSocket();
   const [isDeleteChatOpen, setIsDeleteChatOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { socket } = useSocket();
 
   const { show } = useContextMenu({
     id: CHAT_MENU_ID
   });
-
-  function handleItemClick({ event, props, triggerEvent, data }){
-    console.log(event, props, triggerEvent, data );
-  }
 
   function displayMenu(e){
     show({
       event: e,
     });
   }
+
+  const getChats = async () => {
+    try {
+       const res = await fetch('/api/message/chats');
+       const data = await res.json();
+       if(data.error) {
+        console.log(data.message);
+        return
+       }
+      dispatch(setChats(data))
+    } catch (error) {
+        console.log(error)
+    }
+  };
 
   const handleBlockUser = async () => {
     try {
@@ -52,7 +65,9 @@ function Header() {
         return 
       }
 
-      localStorage.setItem('user-threads', JSON.stringify(data))
+      localStorage.setItem('user-threads', JSON.stringify(data.user));
+      setCurrentUser(data.user)
+      getChats();
     } catch (error: any) {
       console.log(error.message);
     }
@@ -68,7 +83,14 @@ function Header() {
       });
 
       const data = await res.json();
-      localStorage.setItem('user-threads', JSON.stringify(data))
+      if(data.error) {
+        console.log(data.error)
+        return
+      }
+      
+      localStorage.setItem('user-threads', JSON.stringify(data.user));
+      getChats()
+      setCurrentUser(data.user)
     } catch (error: any) {
       console.log(error.message)
     }
@@ -76,7 +98,7 @@ function Header() {
 
   return(
     <div className='header'>
-      {selectedUser.userId !== currentUser?.user?._id ? 
+      {selectedUser.userId !== currentUser?._id ? 
         (selectedUser.userId || searchedUser.searchedUser?._id) && 
           <>
             <div className='header_user'>
@@ -90,8 +112,8 @@ function Header() {
               </div>
             </div>
             <div className='header_icons'>
-              {currentUser.user.blockedUsers.includes(selectedUser.userId || searchedUser.searchedUser._id) && <button onClick={handleUnblockUser} className='unblock'>Unblock user</button>}
-              <Search />
+              {currentUser.blockedUsers.includes(selectedUser.userId || searchedUser.searchedUser._id) && <button onClick={handleUnblockUser} className='unblock'>Unblock user</button>}
+              {/* <Search /> */}
               <button onClick={displayMenu} className='more_btn'>
                 <More />
               </button>
@@ -104,7 +126,7 @@ function Header() {
             <p className='header_username'>Saved</p>
           </div>
           <div className='header_icons'>
-            <Search />
+            {/* <Search /> */}
             <button onClick={displayMenu} className='more_btn'>
               <More />
             </button>
@@ -115,32 +137,24 @@ function Header() {
       {isDeleteChatOpen && <DeleteChatModal setIsDeleteChatOpen={setIsDeleteChatOpen} />}
 
       <Menu id={CHAT_MENU_ID} className='chat_menu' animation='fade' >
-        <Item className='chat_menu_item'>
-          <Select />
-          <p>Select messages</p>
-        </Item>
-        <Item onClick={handleBlockUser} className='chat_menu_item'>
-          <Block />
-          <p>Block user</p>
-        </Item>
-        <Separator />
-        <Item onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_delete'>
-          <Delete />
-          <p>Delete chat</p>
-        </Item>
-        {/* <div onClick={handleItemClick} className='chat_menu_item'>
-          <Select />
-          <p>Select messages</p>
-        </div>
-        <div onClick={handleBlockUser} className='chat_menu_item'>
-          <Block />
-          <p>Block user</p>
-        </div>
-        <Separator />
-        <div onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_delete'>
-          <Delete />
-          <p>Delete chat</p>
-        </div> */}
+        {selectedUser._id &&
+          <Item className='chat_menu_item'>
+            <Select />
+            <p>Select messages</p>
+          </Item>}
+        {selectedUser.userId !== currentUser._id &&
+          <Item onClick={handleBlockUser} className='chat_menu_item'>
+            <Block />
+            <p>Block user</p>
+          </Item>}
+        {(selectedUser._id && selectedUser.userId !== currentUser._id) &&
+          <>
+            <Separator />
+            <Item onClick={() => setIsDeleteChatOpen(true)} className='chat_menu_delete'>
+              <Delete />
+              <p>Delete chat</p>
+            </Item>
+          </>}
       </Menu>
     </div>
   )

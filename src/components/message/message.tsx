@@ -21,7 +21,7 @@ function Message({ message }) {
         });
     };
 
-    const isOwnMessage = currentUser.user._id === message.userId;
+    const isOwnMessage = currentUser._id === message.userId;
     return(
         <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
             <p className='message_text'>{message.text}</p>

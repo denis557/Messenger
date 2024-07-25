@@ -1,15 +1,31 @@
 import './signup.css'
+import usePreviewImg from '../../helpers/usePreviewImg.ts'
+import { io } from 'socket.io-client'
+import { useRef, useState } from 'react'
 import { Next } from '../../assets/Next.tsx'
 import { Prev } from '../../assets/Prev.tsx'
 import { Finish } from '../../assets/Finish.tsx'
 import { Eye } from '../../assets/Eye.tsx'
-import { Link, useNavigate } from 'react-router-dom'
-import { useRef, useState } from 'react'
-import usePreviewImg from '../../helpers/usePreviewImg.ts'
+import { Link } from 'react-router-dom'
 
-function Signup({ onSignup }: any) {
-    const [slideIndex, setSlideIndex] = useState(0);
+const socket = io('http://localhost:5000');
+
+interface User {
+    _id: string;
+    name: string;
+    email: string;
+    username: string;
+    bio?: string;
+    avatar?: string;
+}
+
+interface SignupProps {
+    onSignup: (user: User) => void;
+}
+
+function Signup({ onSignup }: SignupProps) {
     const [error, setError] = useState('');
+    const [slideIndex, setSlideIndex] = useState(0);
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [inputs, setInputs] = useState({
         name: '',
@@ -18,7 +34,7 @@ function Signup({ onSignup }: any) {
         password: '',
         username: ''
     });
-    const fileRef = useRef(null)
+    const fileRef = useRef<HTMLInputElement>(null)
 
     const { handleImgChange, imgUrl } = usePreviewImg();
 
@@ -38,8 +54,9 @@ function Signup({ onSignup }: any) {
                 return
             }
             
-            localStorage.setItem('user-threads', JSON.stringify(data));
-            onSignup(data);
+            localStorage.setItem('user-threads', JSON.stringify(data.user));
+            onSignup(data.user);
+            socket.emit('userLoggedIn', data.user._id)
         } catch (error) {
             console.log(error)
         }
@@ -50,7 +67,7 @@ function Signup({ onSignup }: any) {
             <div className={`signup_body ${slideIndex === 0 && 'active'}`}>
                 <h1>About you</h1>
                 <input type='file' ref={fileRef} className='file_input' onChange={handleImgChange} />
-                {imgUrl ? <img src={imgUrl} className='img_picked' onClick={() => fileRef.current.click()} /> : <div className='img_pick' onClick={() => fileRef.current.click()}></div>}
+                {imgUrl ? <img src={typeof imgUrl === 'string' ? imgUrl : ''} className='img_picked' onClick={() => fileRef.current?.click()} /> : <div className='img_pick' onClick={() => fileRef.current?.click()}></div>}
                 <input type='text' className='text_input' placeholder='Enter your name' value={inputs.name} onChange={e => setInputs({ ...inputs, name: e.target.value})} />
                 <input type='text' className='text_input' placeholder='Tell about you (optional)' value={inputs.bio} onChange={e => setInputs({ ...inputs, bio: e.target.value})} />
                 <button className='auth_btn' onClick={() => setSlideIndex(1)}>

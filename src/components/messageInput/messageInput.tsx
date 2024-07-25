@@ -74,9 +74,7 @@ function MessageInput({ setMessages }) {
             dispatch(setChats(updateChats(data)));
             dispatch(sortChats());
             dispatch(setPage({page: 'main'}));
-            await getChats();
-            const selectedChat = searchedUser.searchedUser?._id ? chats.find(chat => chat.members[0]?._id === searchedUser.searchedUser?._id) : '';
-            searchedUser.searchedUser?._id && dispatch(selectUser({ selectedUser: {_id: selectedChat?._id, userId: selectedChat?.members[0]._id, username: selectedChat?.members[0].name, avatar: selectedChat?.members[0].avatar } }));
+            getChats();
             dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));
             setMessage('');
         } catch (error) {

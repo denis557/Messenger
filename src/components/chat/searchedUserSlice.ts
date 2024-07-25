@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
-interface searchedUser {
+export interface searchedUserInterface {
   searchedUser: {
     _id: string;
     name: string;
@@ -9,7 +9,7 @@ interface searchedUser {
   }
 }
 
-const initialState: searchedUser = {
+const initialState: searchedUserInterface = {
   searchedUser: {
     _id: '',
     name: '',
@@ -21,7 +21,7 @@ export const searchedUserSlice = createSlice({
   name: 'searchedUser',
   initialState,
   reducers: {
-    setSearchedUser: (state, action: PayloadAction<searchedUser>) => {
+    setSearchedUser: (state, action: PayloadAction<searchedUserInterface>) => {
       state.searchedUser = action.payload
     },
   }

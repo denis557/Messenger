@@ -24,7 +24,13 @@ function DeleteChatModal({ setIsDeleteChatOpen }) {
     const handleDeleteChat = async () => {
         try {
             const res = await fetch(`/api/message/deleteChat/${selectedUser._id}`, {
-                method: "DELETE"
+                method: "DELETE",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    otherUserId: selectedUser.userId
+                })
             });
 
             const data = await res.json();

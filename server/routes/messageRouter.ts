@@ -9,7 +9,7 @@ router.delete('/deleteMessage/:id', deleteMessage)
 router.put('/editMessage/:id', protectRoute, editMessage);
 router.put('/unBlockUser/:otherUserId', protectRoute, unBlockUser);
 router.put('/blockUser/:otherUserId', protectRoute, blockUser);
-router.delete('/deleteChat/:id', deleteChat);
+router.delete('/deleteChat/:id', protectRoute, deleteChat);
 router.get('/users', protectRoute, getAllUsers);
 router.get('/chats', protectRoute, getChats);
 router.post('/sendMessage', protectRoute, sendMessage);

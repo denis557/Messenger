@@ -44,7 +44,7 @@ async function sendMessage(req, res) {
 
         const recipientSocketId = getRecipientSocketId(recipientId);
         if(recipientSocketId) {
-            io.to(recipientSocketId).emit('newMessage', newMessage)
+            io.to(recipientSocketId).emit('newMessage', newMessage, chat)
         }
 
         res.status(201).json({ error: false, newMessage});
@@ -135,8 +135,15 @@ async function getAllUsers(req, res) {
 }
 
 async function deleteChat(req, res) {
+    const { otherUserId } = req.body;
+    const userId = req.user._id
     try {
         await Chat.findByIdAndDelete(req.params.id);
+
+        const otherUserSocketId = getRecipientSocketId(otherUserId);
+        if(otherUserSocketId) {
+            io.to(otherUserSocketId).emit('deletedChat', userId)
+        }
 
         res.status(200).json({ error: false, message: "Chat deleted successfully" });
     } catch (error) {
@@ -162,7 +169,12 @@ async function blockUser(req, res) {
         otherUser.blockedBy.push(userId);
         await otherUser.save();
 
-        res.status(200).json({ error: false, user})
+        const blockedUserId = getRecipientSocketId(otherUserId);
+        if(blockedUserId) {
+            io.to(blockedUserId).emit('blocked', otherUser)
+        }
+
+        res.status(200).json({ error: false, user })
     } catch (error) {
         res.status(500).json({ error: true, message: error.message })
     }
@@ -183,6 +195,11 @@ async function unBlockUser(req, res) {
         
         otherUser.blockedBy = otherUser.blockedBy.filter(id => id.toString() !== userId.toString());
         await otherUser.save();
+
+        const unblockedUserId = getRecipientSocketId(otherUserId);
+        if(unblockedUserId) {
+            io.to(unblockedUserId).emit('unblocked', otherUser)
+        }
 
         res.status(200).json({ error: false, user })
     } catch (error) {

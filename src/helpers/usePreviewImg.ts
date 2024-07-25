@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 const usePreviewImg = () => {
     const [imgUrl, setImgUrl] = useState<string | null | ArrayBuffer>(null);
 
-    const handleImgChange = (e) => {
-        const file = e.target.files[0];
+    const handleImgChange = (e: React.ChangeEvent) => {
+        const target = e.target as HTMLInputElement;
+        const file: File = (target.files as FileList)[0];
         if(file && file.type.startsWith('image/')) {
             const reader = new FileReader();
 
