@@ -29,7 +29,7 @@ async function sendMessage(req, res) {
             chatId: chat._id,
             userId: senderId,
             text: message,
-            reply: repliedMessageId
+            // reply: repliedMessageId
         })
 
         await Promise.all([
@@ -38,7 +38,8 @@ async function sendMessage(req, res) {
                 lastMessage: {
                     text: message,
                     sender: senderId
-                }
+                },
+                unreadCount: chat.unreadCount + 1
             })
         ]);
 

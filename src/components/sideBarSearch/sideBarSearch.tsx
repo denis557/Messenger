@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPage } from '../sideBar/sideBarSlice';
 import User from '../user/user';
 import SearchedUser from '../searchedUser/searchedUser';
+import { SearchGradient } from '../../assets/SearchGradient';
 
 function SideBarSearch() {
     const [searchInput, setSearchInput] = useState('');
@@ -36,7 +37,11 @@ function SideBarSearch() {
         <>
             <div className='sideBar_header'>
                 <button className='sideBar_back' onClick={() => dispatch(setPage({page: 'main'}))}><Back /></button>
-                <input className='sideBarSearch_search' value={searchInput} onChange={e => setSearchInput(e.target.value)} />
+                {/* <input className='sideBarSearch_search' value={searchInput} onChange={e => setSearchInput(e.target.value)} /> */}
+                <div className='sideBarSearch_search' value={searchInput} onChange={e => setSearchInput(e.target.value)}>
+                    <SearchGradient />
+                    <input />
+                </div>
             </div>
             <div className='sideBar_main'>
                 {!searchInput ? 

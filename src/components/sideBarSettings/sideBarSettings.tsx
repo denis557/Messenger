@@ -11,7 +11,7 @@ import { Logout } from '../../assets/Logout';
 import usePreviewImg from '../../helpers/usePreviewImg';
 
 function SideBarSettings() {
-    const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
+    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user-threads")!));
     const [emailError, setEmailError] = useState('');
     const [idError, setIdError] = useState('');
     const dispatch = useDispatch();
@@ -69,7 +69,6 @@ function SideBarSettings() {
 
             const data = await res.json()
             localStorage.removeItem('user-threads');
-            console.log(data);
         } catch (error) {
             console.log(error)
         }

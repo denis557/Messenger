@@ -22,10 +22,8 @@ function App() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user-threads');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+    setUser(JSON.parse(storedUser));
+  }, [localStorage.getItem('user-threads')]);
 
   return (
     <BrowserRouter>

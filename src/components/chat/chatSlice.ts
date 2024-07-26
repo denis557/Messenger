@@ -18,6 +18,7 @@ interface ChatInterface {
   lastMessage: LastMessage;
   members: Member[];
   updatedAt: string;
+  unreadCount: number
 }
 
 export interface Chats {

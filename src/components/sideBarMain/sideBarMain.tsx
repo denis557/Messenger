@@ -35,7 +35,7 @@ function SideBarMain() {
     return (
         <>
             <div className='sideBar_header'>
-                <button onContextMenu={displayMenu} className='menu_btn'>
+                <button onClick={displayMenu} className='menu_btn'>
                     <MenuSidebar />
                 </button>
                 <input className='sideBar_search' onClick={() => dispatch(setPage({page: 'search'}))} />

@@ -21,6 +21,8 @@ function Chat() {
 
     const messageRef = useRef(null);
 
+    console.log(chats)
+
     const scrollToBottom = () => {
         if (messageRef.current) {
             messageRef.current.scrollTo(0, 100000);
@@ -38,12 +40,26 @@ function Chat() {
                         sender: data.userId,
                         seen: data.seen
                     },
+                    unreadCount: (chat._id === data.chatId && data.userId !== currentUser._id) ? (chat.unreadCount || 0) + 1 : chat.unreadCount
                 };
             }
             return chat;
         });
         return updatedChats;
     };
+
+    const resetUnreadCount = () => {
+        const updatedChats = chats.map(chat => {
+            if(chat._id === selectedUser._id) {
+                return {
+                    ...chat,
+                    unreadCount: 0
+                };
+            }
+            return chat
+        });
+        return updatedChats
+    }
 
     const updateMessages = () => {
         const updatedChats = chats.map(chat => {
@@ -114,21 +130,23 @@ function Chat() {
         return () => socket.off('unblocked')
     }, [socket, selectedUser])
 
-    useEffect(() => {
-        socket.on('messagesSeen', ({ chatId }) => {
-            dispatch(setChats(updateMessages()))
-        })
-    }, [socket, currentUser._id, selectedUser, messages])
+    // useEffect(() => {
+    //     socket.on('messagesSeen', ({ chatId }) => {
+    //         dispatch(setChats(updateMessages()))
+    //     })
+    // }, [socket, currentUser._id, selectedUser, messages])
 
     useEffect(() => {
         socket.on('newMessage', (message, newChat) => {
+            dispatch(setChats(updateChats(message)));
             if(selectedUser.userId === message.userId) {
                 setMessages((m) => [...m, message]);
             }
-            dispatch(setChats(updateChats(message)));
+
             if(!chats.some(chat => chat._id === newChat._id)) {
                 getChats();
             }
+
             dispatch(sortChats());
         })
 
@@ -141,10 +159,12 @@ function Chat() {
             socket.emit('markMessagesAsSeen', {
                 chatId: selectedUser._id,
                 userId: selectedUser.userId
-            })
+            });
+            dispatch(setChats(resetUnreadCount()))
         }
 
         socket.on('messagesSeen', ({ chatId }) => {
+            dispatch(setChats(updateMessages()))
             if(selectedUser._id === chatId) {
                 setMessages((prev: any) => {
                     const updatedMessages = prev.map((message: any) => {

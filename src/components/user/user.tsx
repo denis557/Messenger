@@ -44,9 +44,12 @@ function User({ chat }) {
         <p className='user_name'>{chat.members[0].name}</p>
         <p className='user_lastMessage'>{chat.lastMessage.text}</p>
       </div>
-      <div className='user_lastMessage_info_div'>
-        {currentUser._id === chat.lastMessage.sender ? chat.lastMessage.seen ? <Seen /> : <Unseen /> : ''}
-        <p className='user_lastMessage_time'>{changeTimeZone(chat.updatedAt)}</p>
+      <div className='user_lastMessage_info_wrapper'>
+        <div className='user_lastMessage_info_div'>
+          {currentUser._id === chat.lastMessage.sender ? chat.lastMessage.seen ? <Seen /> : <Unseen /> : ''}
+          <p className='user_lastMessage_time'>{changeTimeZone(chat.updatedAt)}</p>
+        </div>
+        {(chat.unreadCount !== 0 && chat.lastMessage.sender !== currentUser._id) ? <div className='unread_count'>{chat.unreadCount}</div> : ''}
       </div>
     </div>
   )

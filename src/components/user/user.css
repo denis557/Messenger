@@ -70,11 +70,33 @@
   overflow: hidden;
 }
 
+.user_lastMessage_info_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin-left: auto;
+  height: 100%;
+}
+
 .user_lastMessage_info_div {
   display: flex;
   flex-direction: row;
   align-self: flex-start;
   margin-left: auto;
+}
+
+.unread_count {
+  align-self: flex-end;
+  margin-top: auto;
+  width: 1.5625vw;
+  height: 1.5625vw;
+  background-color: #fff;
+  border-radius: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.833vw;
+  color: #5E00D6;
 }
 
 .user_lastMessage_time {

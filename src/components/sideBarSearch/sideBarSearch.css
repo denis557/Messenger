@@ -6,9 +6,11 @@
 }
 
 .sideBarSearch_search {
-    width: 12vw;
+    /* width: 12vw; */
+    width: 14.60417vw;
     height: 5.3937vh;
-    padding: 0 0.52083vw 0 3.125vw;
+    /* padding: 0 0.52083vw 0 3.125vw; */
+    padding: 0 0.52083vw;
     background-color: transparent;
     border-radius: 100px;
     background: linear-gradient(#3F3F3F, #3F3F3F) padding-box,
@@ -17,15 +19,26 @@
     outline: none;
     font-size: 1.25vw;
     color: white;
-    position: relative;
+    /* position: relative; */
+    
 
-    /* background-image: url('../../assets/Search.svg');
-    background-size: 1.822916vw 1.822916vw;
-    background-repeat: no-repeat;
-    background-position: 10px; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.52083vw;
 }
 
-.sideBarSearch_search::before {
+.sideBarSearch_search input {
+    outline: none;
+    font-size: 1.25vw;
+    height: 80%;
+    width: 100%;
+    color: white;
+    background-color: transparent;
+    border: none;
+}
+
+/* .sideBarSearch_search::before {
     content: '';
     background-image: url('../../assets/Search.svg');
     background-size: 1.822916vw 1.822916vw;
@@ -34,16 +47,8 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    width: 1.822916vw; /* ширина иконки */
-    height: 1.822916vw; /* высота иконки */
-}
-
-/* .sideBarSearch_search input {
-    outline: none;
-    font-size: 1.25vw;
-    color: white;
-    background-color: transparent;
-    border: none;
+    width: 1.822916vw;
+    height: 1.822916vw;
 } */
 
 .sideBar_newGroup {
