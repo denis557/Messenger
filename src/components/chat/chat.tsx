@@ -21,8 +21,6 @@ function Chat() {
 
     const messageRef = useRef(null);
 
-    console.log(chats)
-
     const scrollToBottom = () => {
         if (messageRef.current) {
             messageRef.current.scrollTo(0, 100000);

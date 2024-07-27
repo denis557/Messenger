@@ -11,12 +11,8 @@ import { Delete } from '../../assets/Delete';
 
 const MESSAGE_MENU_ID = 'message_menu_id';
 
-function MessageMenu() {
+function MessageMenu({ message }) {
     const dispatch = useDispatch();
-
-    // const handleItemClick = ({ event, props, triggerEvent, data }) => {
-    //     console.log(event, props, triggerEvent, data);
-    // };
 
     return(
         <Menu id={MESSAGE_MENU_ID} animation='fade' className='message_menu'>
@@ -40,21 +36,6 @@ function MessageMenu() {
                 <Delete />
                 <p>Delete</p>
             </Item>
-            {/* <div onClick={handleItemClick}>
-                <p>Reply</p>
-            </div>
-            <div onClick={handleItemClick}>
-                <p>Edit</p>
-            </div>
-            <div onClick={handleItemClick}>
-                <p>Copy text</p>
-            </div>
-            <div onClick={handleItemClick}>
-                <p>Select</p>
-            </div>
-            <div onClick={handleItemClick}>
-                <p>Delete</p>
-            </div> */}
         </Menu>
     )
 }
