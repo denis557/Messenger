@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { firstLetter } from "../../helpers/firstLetter";
 import { selectUser } from '../user/userSlice';
-import { setSearchedUser } from "../chat/searchedUserSlice";
+import { setSearchedUser } from "./searchedUserSlice";
 
 function SearchedUser({ user }) {
     const dispatch = useDispatch();

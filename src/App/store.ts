@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../components/user/userSlice.ts'
 import chatReducer from '../components/chat/chatSlice.ts'
-import searchedUserReducer from '../components/chat/searchedUserSlice.ts'
+import searchedUserReducer from '../components/searchedUser/searchedUserSlice.ts'
 import pageReducer from '../components/sideBar/sideBarSlice.ts'
 
 export const store = configureStore({

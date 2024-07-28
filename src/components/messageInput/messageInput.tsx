@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setChats, sortChats } from '../chat/chatSlice';
 import { setPage } from '../sideBar/sideBarSlice';
 import EmojiPicker from 'emoji-picker-react';
-import { setSearchedUser } from '../chat/searchedUserSlice';
+import { setSearchedUser } from '../searchedUser/searchedUserSlice';
 import { selectUser } from '../user/userSlice';
 
 function MessageInput({ setMessages }) {

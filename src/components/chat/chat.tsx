@@ -19,6 +19,8 @@ function Chat() {
     const { socket } = useSocket();
     const dispatch = useDispatch();
 
+    console.log(messages)
+
     const messageRef = useRef(null);
 
     const scrollToBottom = () => {

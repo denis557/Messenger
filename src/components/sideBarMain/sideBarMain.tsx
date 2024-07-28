@@ -11,7 +11,7 @@ import { Moon } from '../../assets/Moon';
 import { SavedMenu } from '../../assets/SavedMenu';
 import { MenuSidebar } from '../../assets/MenuSidebar';
 import { selectUser } from '../user/userSlice';
-import { setSearchedUser } from '../chat/searchedUserSlice';
+import { setSearchedUser } from '../searchedUser/searchedUserSlice';
 import 'react-contexify/ReactContexify.css';
 
 const SIDEBAR_MENU_ID = 'sidebar_menu_id';

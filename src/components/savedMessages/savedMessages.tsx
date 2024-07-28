@@ -2,7 +2,7 @@ import './savedMessages.css'
 import { changeTimeZone } from '../../helpers/changeTimeZone'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from '../user/userSlice';
-import { setSearchedUser } from "../chat/searchedUserSlice";
+import { setSearchedUser } from "../searchedUser/searchedUserSlice";
 import { Saved } from '../../assets/Saved';
 
 function SavedMessages({ chat }) {

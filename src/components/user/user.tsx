@@ -3,7 +3,7 @@ import { firstLetter } from '../../helpers/firstLetter'
 import { changeTimeZone } from '../../helpers/changeTimeZone'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from './userSlice';
-import { setSearchedUser } from "../chat/searchedUserSlice";
+import { setSearchedUser } from "../searchedUser/searchedUserSlice";
 import { useSocket } from '../../../server/context/socketContext';
 import Seen from '../../assets/Seen'
 import Unseen from '../../assets/Unseen'
