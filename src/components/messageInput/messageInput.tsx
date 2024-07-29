@@ -32,7 +32,7 @@ function MessageInput() {
                     updatedAt: new Date().toISOString(),
                     lastMessage: {
                         text: message,
-                        sender: data.newMessage.userId
+                        sender: (data.newMessage || data.message).userId
                     }
                 }
             }
@@ -68,7 +68,8 @@ function MessageInput() {
                 },
                 body: JSON.stringify({
                     message: message,
-                    recipientId: selectedUser.userId || searchedUser.searchedUser?._id
+                    recipientId: selectedUser.userId || searchedUser.searchedUser?._id,
+                    repliedMessageId: mode.messageId
                 })
             });
             const data = await res.json();
@@ -76,10 +77,12 @@ function MessageInput() {
                 console.log(data)
                 return
             }
+
             dispatch(setMessages([...messages, data.newMessage]))
             dispatch(setChats(updateChats(data)));
             dispatch(sortChats());
             dispatch(setPage({page: 'main'}));
+            dispatch(setMode({ mode: { mode: 'default', messageId: '' }}));
             getChats();
             dispatch(setSearchedUser({ searchedUser: { _id: '', name: '', avatar: '' } }));
             setMessage('');
@@ -88,10 +91,37 @@ function MessageInput() {
         }
     }
 
+    const handleEditMessage = async (e) => {
+        e.preventDefault();
+        if(!message) return
+        try {
+            const res = await fetch(`api/message/editMessage/${mode.messageId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    updatedText: message
+                })
+            });
+
+            const data = await res.json();
+
+            if(data.error) {
+                console.log(data);
+                return
+            }
+
+            dispatch(setMode({ mode: { mode: 'default', messageId: '' }}));
+            setMessage('');
+        } catch (error) {
+             console.error(error)
+        }
+    }
 
     return (
         <>
-            <form className='input_section' onSubmit={handleSendMessage}>
+            <form className='input_section' onSubmit={mode.mode === 'edit' ? handleEditMessage : handleSendMessage}>
                 <input type='file' id='file_message_input' />
                 <label htmlFor='file_message_input'><Add /></label>
                 <div className='input_div'>

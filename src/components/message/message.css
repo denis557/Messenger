@@ -5,12 +5,20 @@
     border-radius: 1.04166vw;
     align-self: flex-start;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
+    flex-direction: column;
     /* align-self: flex-start;
     display: inline-block;
     word-wrap: break-word;
     position: relative; */
     padding: 0.43149vh 0.625vw 0 0.78125vw;
+}
+
+.message_wraper {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
 }
 
 .message_text {
@@ -51,5 +59,36 @@
 }
 
 .edited {
-    
+    font-size: 0.9375vw;
+    color: #CACACA;
+}
+
+.message_reply {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0.53937vh;
+    align-self: flex-start;
+    justify-items: flex-start;
+}
+
+.message_reply hr {
+    transform: rotate(90);
+    /* height: 30px; */
+    height: 5.6094929vh;
+    /* height: 100%; */
+    width: 2px;
+    background-image: linear-gradient(to bottom, #BD00FF, #C67EFF);
+    border: none;
+    margin-right: 0.52083vw;
+    /* margin-left: 1.5625vw; */
+    margin-bottom: 2px;
+}
+
+.message_reply div {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
 }

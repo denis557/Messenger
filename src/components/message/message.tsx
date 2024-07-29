@@ -25,16 +25,42 @@ function Message({ message }) {
     };
 
     const isOwnMessage = currentUser._id === message.userId;
-    const repliesMessage = message.replyTo ? messages.find(messageFind => messageFind._id === message._id) : ''
+    const repliedMessage = message.reply ? messages.find(messageFind => messageFind._id === message._id) : ''
     return(
-        <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
-            <p className='message_text'>{message.text}</p>
-            <div className='message_info_div'>
-                {message.isEdited && <p className='edited'>Edited</p>}
-                {isOwnMessage ? message.seen ? <Seen /> : <Unseen /> : ''}
-                <p className='message_time'>{changeTimeZone(message.updatedAt)}</p>
-            </div>
-        </div>
+        // <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
+        <>
+            {message.reply ? 
+                <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
+                    <div className='message_reply'>
+                        <hr />
+                        <div>
+                            <p className='mode_title'>{currentUser._id === repliedMessage.userId ? "You" : selectedUser.username}</p>
+                            <p className='mode_text'>{repliedMessage.text}</p>
+                        </div>
+                    </div>
+                    <div className='message_wraper'>
+                        <p className='message_text'>{message.text}</p>
+                        <div className='message_info_div'>
+                            {message.isEdited && <p className='edited'>edited</p>}
+                            {isOwnMessage ? message.seen ? <Seen /> : <Unseen /> : ''}
+                            <p className='message_time'>{changeTimeZone(message.updatedAt)}</p>
+                        </div>
+                    </div>
+                </div>
+            :
+                <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
+                    <div className='message_wraper'>
+                        <p className='message_text'>{message.text}</p>
+                        <div className='message_info_div'>
+                            {message.isEdited && <p className='edited'>edited</p>}
+                            {isOwnMessage ? message.seen ? <Seen /> : <Unseen /> : ''}
+                            <p className='message_time'>{changeTimeZone(message.updatedAt)}</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </>
+        // </div>
     )
 }
 

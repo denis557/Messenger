@@ -7,6 +7,7 @@ interface messageInterface {
   userId: string;
   text: string;
   seen: boolean;
+  reply: string;
   isEdited: boolean;
   createdAt: string;
   updatedAt: string;

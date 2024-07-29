@@ -29,7 +29,7 @@ async function sendMessage(req, res) {
             chatId: chat._id,
             userId: senderId,
             text: message,
-            // reply: repliedMessageId
+            reply: repliedMessageId
         })
 
         await Promise.all([
@@ -56,13 +56,12 @@ async function sendMessage(req, res) {
 }
 
 async function editMessage(req, res) {
-    const { updatedMessage, repliedMessageId } = req.body;
-    const { id } = req.params.id;
+    const { updatedText } = req.body;
     try {
-        const message = await Message.findById(id);
+        const message = await Message.findById(req.params.id);
         if(!message) res.status(400).json({ error: true, message: 'Message not found' })
         
-        await message.updateOne({ text: updatedMessage, edited: true, reply: repliedMessageId });
+        await message.updateOne({ text: updatedText, isEdited: true });
         await message.save();
 
         res.status(200).json({ error: false, message })
