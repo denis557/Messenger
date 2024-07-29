@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import './deleteChatModal.css'
+import './deleteMessageModal.css'
+import { setMessages } from '../message/messagesSlice';
 
-function DeleteChatModal({ setIsDeleteMessageOpen }) {
+function DeleteMessageModal({ setIsDeleteMessageOpen, message }) {
     const { selectedUser } = useSelector(state => state.user);
     const dispatch = useDispatch();
 
@@ -13,44 +14,22 @@ function DeleteChatModal({ setIsDeleteMessageOpen }) {
                 console.log(data.message);
                 return
             }
-            setMessages(data.messages);
+            dispatch(setMessages(data.messages));
         } catch (error) {
             console.log(error);
         }
     };
 
-    // const handleDeleteChat = async () => {
-    //     try {
-    //         const res = await fetch(`/api/message/deleteChat/${selectedUser._id}`, {
-    //             method: "DELETE",
-    //             headers: {
-    //                 "Content-type": "application/json"
-    //             },
-    //             body: JSON.stringify({
-    //                 otherUserId: selectedUser.userId
-    //             })
-    //         });
-
-    //         const data = await res.json();
-    //         if(data.error) {
-    //             console.log(data.message);
-    //             return
-    //         }
-    //         dispatch(selectUser({ selectedUser: { _id: '', userId: '', username: '', avatar: '' } }));
-    //         getChats();
-    //         setIsDeleteChatOpen(false)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-    const handleDeleteMessage = async(message) => {
+    const handleDeleteMessage = async() => {
         try {
-            const res = await fetch(`/api/message/${message._id}`, {
+            const res = await fetch(`/api/message/deleteMessage/${message._id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-type": "application/json"
                 },
+                body: JSON.stringify({
+                    otherUserId: selectedUser.userId
+                })
             });
             const data = await res.json();
 
@@ -59,7 +38,8 @@ function DeleteChatModal({ setIsDeleteMessageOpen }) {
                 return
             }
 
-            
+            getMessages();
+            setIsDeleteMessageOpen(false)
         } catch (error) {
             console.log(error)
         }
@@ -69,16 +49,17 @@ function DeleteChatModal({ setIsDeleteMessageOpen }) {
         <div className='modal_bg'>
             <div className='delete_chat_body'>
                 <div className='delete_chat_title_div'>
-                    <h1 className='delete_chat_title'>Delete chat</h1>
-                    <p className='delete_chat_action'>Are you sure you want to delete this chat?</p>
+                    <h1 className='delete_chat_title'>Delete message</h1>
+                    <p className='delete_chat_action'>Are you sure you want to delete this message?</p>
                 </div>
                 <div className='delete_chat_actions_div'>
-                    <p className='delete_chat_delete' onClick={handleDeleteChat}>Delete this chat</p>
-                    <p className='delete_chat_cancel' onClick={() => setIsDeleteChatOpen(false)}>Cancel</p>
+                    <p className='delete_chat_delete' onClick={handleDeleteMessage}>Delete this message</p>
+                    {/* <p className='delete_chat_delete' onClick={() => console.log(message)}>Delete this message</p> */}
+                    <p className='delete_chat_cancel' onClick={() => setIsDeleteMessageOpen(false)}>Cancel</p>
                 </div>
             </div>
         </div>
     )
 }
 
-export default DeleteChatModal
+export default DeleteMessageModal

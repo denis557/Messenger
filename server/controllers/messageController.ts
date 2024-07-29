@@ -72,8 +72,15 @@ async function editMessage(req, res) {
 }
 
 async function deleteMessage(req, res) {
+    const { otherUserId } = req.body;
+    const userId = req.user._id
     try {
         await Message.findByIdAndDelete(req.params.id);
+
+        const otherUserSocketId = getRecipientSocketId(otherUserId);
+        if(otherUserSocketId) {
+            io.to(otherUserSocketId).emit('deletedMessage', userId)
+        }
 
         res.status(200).json({ error: false, message: "Message deleted successfully" });
     } catch (error) {

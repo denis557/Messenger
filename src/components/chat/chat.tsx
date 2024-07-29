@@ -8,18 +8,17 @@ import MessageInput from '../messageInput/messageInput';
 import MessageMenu from '../messageMenu/messageMenu';
 import Message from '../message/message';
 import { selectUser } from '../user/userSlice';
+import { setMessages } from '../message/messagesSlice';
 
 function Chat() {
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user-threads")!));
-    const [messages, setMessages] = useState([]);
+    const { messages } = useSelector((state: RootState) => state.messages)
     const [loadingMessages, setLoadingMessages] = useState(true);
     const { chats } = useSelector((state: RootState) => state.chat);
     const { selectedUser } = useSelector((state: RootState) => state.user);
     const { searchedUser } = useSelector((state: RootState) => state.searchedUser);
     const { socket } = useSocket();
     const dispatch = useDispatch();
-
-    console.log(messages)
 
     const messageRef = useRef(null);
 
@@ -93,6 +92,22 @@ function Chat() {
         }
     };
 
+    const getMessages = async () => {
+        try {
+            const res = await fetch(`/api/message/${selectedUser.userId}`);
+            const data = await res.json();
+            if(data.error) {
+                console.log(data.message);
+                return
+            }
+            dispatch(setMessages(data.messages));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoadingMessages(false);
+        }
+    };
+
     useEffect(() => {
         setCurrentUser(JSON.parse(localStorage.getItem("user-threads")!))
     }, [localStorage.getItem('user-threads')])
@@ -113,6 +128,17 @@ function Chat() {
     }, [socket])
 
     useEffect(() => {
+        socket.on('deletedMessage', (otherUserId) => {
+            if(otherUserId === selectedUser.userId) {
+                getMessages();
+            }
+        })
+
+        return () => socket.off('deletedMessage')
+    }, [socket])
+
+
+    useEffect(() => {
         socket.on('blocked', (updatedUser) => {
           localStorage.setItem('user-threads', JSON.stringify(updatedUser));
           setCurrentUser(updatedUser);
@@ -130,17 +156,11 @@ function Chat() {
         return () => socket.off('unblocked')
     }, [socket, selectedUser])
 
-    // useEffect(() => {
-    //     socket.on('messagesSeen', ({ chatId }) => {
-    //         dispatch(setChats(updateMessages()))
-    //     })
-    // }, [socket, currentUser._id, selectedUser, messages])
-
     useEffect(() => {
         socket.on('newMessage', (message, newChat) => {
             dispatch(setChats(updateChats(message)));
             if(selectedUser.userId === message.userId) {
-                setMessages((m) => [...m, message]);
+                dispatch(setMessages([...messages, message]))
             }
 
             if(!chats.some(chat => chat._id === newChat._id)) {
@@ -166,40 +186,22 @@ function Chat() {
         socket.on('messagesSeen', ({ chatId }) => {
             dispatch(setChats(updateMessages()))
             if(selectedUser._id === chatId) {
-                setMessages((prev: any) => {
-                    const updatedMessages = prev.map((message: any) => {
-                        if(!message.seen) {
-                            return {
-                                ...message, 
-                                seen: true
-                            }
-                        }
-                        return message
-                    })
-                    return updatedMessages
-                })
+                const updatedMessages = messages.map((message) => {
+                    if (!message.seen) {
+                        return {
+                            ...message,
+                            seen: true
+                        };
+                    }
+                    return message;
+                });
+                dispatch(setMessages(updatedMessages));
             }
         })
     }, [socket, currentUser._id, selectedUser, messages])
 
     useEffect(() => {
         if(selectedUser.userId) {
-            const getMessages = async () => {
-                try {
-                    const res = await fetch(`/api/message/${selectedUser.userId}`);
-                    const data = await res.json();
-                    if(data.error) {
-                        console.log(data.message);
-                        return
-                    }
-                    setMessages(data.messages);
-                } catch (error) {
-                    console.log(error);
-                } finally {
-                    setLoadingMessages(false);
-                }
-            };
-    
             getMessages();
         }
     }, [selectedUser.userId]);
@@ -220,7 +222,7 @@ function Chat() {
                                         <p>You are blocked by this user!</p>
                                     </div>
                                 :
-                                    <MessageInput setMessages={setMessages} />
+                                    <MessageInput />
                             }
                             <div className='message_section' ref={messageRef}>  
                                 {messages.map((message, index) => <Message message={message} key={index} />)}
@@ -236,7 +238,7 @@ function Chat() {
                                     <p>You are blocked by this user!</p>
                                 </div>
                             :
-                                <MessageInput setMessages={setMessages} />
+                                <MessageInput />
                         
                     :
                         ''}

@@ -5,7 +5,7 @@ const express = require('express');
 
 const router = express.Router();
 
-router.delete('/deleteMessage/:id', deleteMessage)
+router.delete('/deleteMessage/:id', protectRoute, deleteMessage)
 router.put('/editMessage/:id', protectRoute, editMessage);
 router.put('/unBlockUser/:otherUserId', protectRoute, unBlockUser);
 router.put('/blockUser/:otherUserId', protectRoute, blockUser);
