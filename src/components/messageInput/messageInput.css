@@ -1,35 +1,20 @@
 .input_section {
     width: 100%;
     /* height: 6.47249vh; */
-    height: 7.1vh;
+    /* height: 7.1vh; */
+    height: fit-content;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.78125vw;
-    /* margin-bottom: 500px; */
-}
-
-.input_btn {
-    /* width: 2.86458vw; */
-    width: 3.9vw;
-    /* height: 2.86458vw; */
-    height: 3.1vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #3F3F3F;
-    border-radius: 500px;
-    border: none;
 }
 
 #file_message_input {
     display: none;
 }
 
-.input_section label {
-    /* width: 2.86458vw; */
+.input_section label, .input_btn {
     width: 3.9vw;
-    /* height: 2.86458vw; */
     height: 3.1vw;
     display: flex;
     align-items: center;
@@ -37,32 +22,58 @@
     background-color: #3F3F3F;
     border-radius: 500px;
     border: none;
+    align-self: flex-end;
+    margin-bottom: 0.32362vh;
 }
 
 .input_div {
     width: 100%;
-    /* height: 100%; */
+    height: fit-content;
+    min-height: 6.47249vh;
     background-color: #3F3F3F;
-    /* display: flex;
-    flex-direction: row;
-    align-items: center; */
     display: flex;
+    /* flex-direction: row; */
     flex-direction: column;
-    /* justify-content: center; */
+    align-items: center;
+    justify-content: center;
     border-radius: 500px;
 }
 
 .default_input_div {
     width: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 1.2vh;
+}
+
+.mode_div {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.mode_div hr {
+    transform: rotate(90);
+    height: 30px;
+    /* height: 100%; */
+    width: 2px;
+    background-image: linear-gradient(to bottom, #BD00FF, #C67EFF);
+    border: none;
+    margin-right: 0.52083vw;
+}
+
+.mode_div div {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
 }
 
 .message_input {
     background-color: #3F3F3F;
-    height: 80%;
+    /* height: 100%; */
     width: 88%;
     margin-left: 20px;
     border: none;
@@ -71,20 +82,12 @@
     font-size: 1.25vw;
 }
 
-.mode_div {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.mode_title {
+    font-size: 1.0416vw;
 }
 
-.mode_div hr {
-    transform: rotate(90);
-    height: 100%;
-    width: 2px;
-    background-image: linear-gradient(to bottom, #BD00FF, #C67EFF);
-    border: none;
-    margin-right: 0.52083vw;
+.mode_text {
+    font-size: 1.25vw;
 }
 
 .emoji_btn {
@@ -95,6 +98,5 @@
 .emoji_div {
     position: absolute;
     margin-bottom: 70px;
-    /* margin-left: 20%; */
     left: 60%;
 }

@@ -102,8 +102,8 @@ function MessageInput() {
                                 <div className='mode_div'>
                                     <hr />
                                     <div>
-                                        <p>David</p>
-                                        <p>Hello!</p>
+                                        <p className='mode_title'>David</p>
+                                        <p className='mode_text'>Hello!</p>
                                     </div>
                                 </div>
                                 <div className='default_input_div'>
@@ -117,8 +117,8 @@ function MessageInput() {
                                     <div className='mode_div'>
                                         <hr />
                                         <div>
-                                            <p>Edit message</p>
-                                            <p>Hello my friend</p>
+                                            <p className='mode_title'>Edit message</p>
+                                            <p className='mode_text'>Hello my friend</p>
                                         </div>
                                     </div>
                                     <div className='default_input_div'>
@@ -129,8 +129,8 @@ function MessageInput() {
                             :
                                 ''
                     }
-
-                    {/* <input type='text' className='message_input' placeholder='Enter a message' value={message} onChange={e => setMessage(e.target.value)} />
+{/* 
+                    <input type='text' className='message_input' placeholder='Enter a message' value={message} onChange={e => setMessage(e.target.value)} />
                     <button type='button' className='emoji_btn' onClick={() => setIsShowEmoji(true)}><Emoji /></button> */}
                 </div>
                 <button type='submit' className='input_btn'><Send /></button>

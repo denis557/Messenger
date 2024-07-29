@@ -5,7 +5,7 @@ export interface modeInterface {
 }
 
 const initialState: modeInterface = {
-    mode: 'default'
+    mode: 'reply'
 }
 
 export const modeSlice = createSlice({
