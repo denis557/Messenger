@@ -1,11 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface modeInterface {
-    mode: string
+    mode: {
+        mode: string,
+        messageId: string
+    }
 }
 
 const initialState: modeInterface = {
-    mode: 'reply'
+    mode: {
+        mode: 'default',
+        messageId: ''
+    }
 }
 
 export const modeSlice = createSlice({

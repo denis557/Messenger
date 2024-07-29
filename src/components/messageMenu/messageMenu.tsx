@@ -9,6 +9,7 @@ import { Select } from '../../assets/Select';
 import { Delete } from '../../assets/Delete';
 import DeleteMessageModal from '../deleteMessageModal/deleteMessageModal';
 import { useState } from 'react';
+import { setMode } from '../messageInput/modeSlice';
 
 const MESSAGE_MENU_ID = 'message_menu_id';
 
@@ -24,11 +25,11 @@ function MessageMenu() {
     return(
         <>
             <Menu id={MESSAGE_MENU_ID} animation='fade' className='message_menu'>
-                <Item className='message_menu_item'>
+                <Item className='message_menu_item' onClick={({props}) => dispatch(setMode({ mode: { mode: 'reply', messageId: props.message._id } }))}>
                     <Reply />
                     <p>Reply</p>
                 </Item>
-                <Item hidden={({props}) => !props.isOwnMessage} className='message_menu_item'>
+                <Item hidden={({props}) => !props.isOwnMessage} className='message_menu_item' onClick={({props}) => dispatch(setMode({ mode: { mode: 'edit', messageId: props.message._id } }))}>
                     <Edit />
                     <p>Edit</p>
                 </Item>

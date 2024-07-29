@@ -2,6 +2,7 @@ import './messageInput.css'
 import Add from '../../assets/AddMessage'
 import Send from '../../assets/Send'
 import Emoji from '../../assets/Emoji'
+import { Cancel } from '../../assets/Cancel'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChats, sortChats } from '../chat/chatSlice';
@@ -9,8 +10,10 @@ import { setPage } from '../sideBar/sideBarSlice';
 import EmojiPicker from 'emoji-picker-react';
 import { setSearchedUser } from '../searchedUser/searchedUserSlice';
 import { setMessages } from '../message/messagesSlice';
+import { setMode } from './modeSlice'
 
 function MessageInput() {
+    const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
     const { messages } = useSelector((state: RootState) => state.messages)
     const [message, setMessage] = useState('');
     const [isShowEmoji, setIsShowEmoji] = useState(false);
@@ -19,8 +22,7 @@ function MessageInput() {
     const { chats } = useSelector(state => state.chat);
     const { mode } = useSelector(state => state.mode);
     const dispatch = useDispatch();
-
-    console.log(mode)
+    const repliedOrEditedMessage = mode.messageId ? messages.find(message => message._id === mode.messageId) : ''
 
     const updateChats = (data) => {
         const updatedChats = chats.map(chat => {
@@ -85,43 +87,47 @@ function MessageInput() {
             console.error(error)
         }
     }
+
+
     return (
         <>
             <form className='input_section' onSubmit={handleSendMessage}>
                 <input type='file' id='file_message_input' />
                 <label htmlFor='file_message_input'><Add /></label>
                 <div className='input_div'>
-                    {mode === 'default' ? 
+                    {mode.mode === 'default' ? 
                         <div className='default_input_div'>
                             <input type='text' className='message_input' placeholder='Enter a message' value={message} onChange={e => setMessage(e.target.value)} />
                             <button type='button' className='emoji_btn' onClick={() => setIsShowEmoji(true)}><Emoji /></button>
                         </div>
                     :
-                        mode === 'edit' ?
+                        mode.mode === 'edit' ?
                             <>
                                 <div className='mode_div'>
                                     <hr />
                                     <div>
-                                        <p className='mode_title'>David</p>
-                                        <p className='mode_text'>Hello!</p>
+                                        <p className='mode_title'>Edit message</p>
+                                        <p className='mode_text'>{repliedOrEditedMessage.text}</p>
                                     </div>
+                                    <button onClick={() => dispatch(setMode({ mode: { mode: 'default', messageId: '' } }))}><Cancel /></button>
                                 </div>
-                                <div className='default_input_div'>
+                                <div className='default_input_div mode'>
                                     <input type='text' className='message_input' placeholder='Enter a message' value={message} onChange={e => setMessage(e.target.value)} />
                                     <button type='button' className='emoji_btn' onClick={() => setIsShowEmoji(true)}><Emoji /></button>
                                 </div>
                             </>
                         :
-                            mode === 'reply' ?
+                            mode.mode === 'reply' ?
                                 <>
                                     <div className='mode_div'>
                                         <hr />
                                         <div>
-                                            <p className='mode_title'>Edit message</p>
-                                            <p className='mode_text'>Hello my friend</p>
+                                            <p className='mode_title'>{currentUser._id === repliedOrEditedMessage.userId ? "You" : selectedUser.username}</p>
+                                            <p className='mode_text'>{repliedOrEditedMessage.text}</p>
                                         </div>
+                                        <button onClick={() => dispatch(setMode({ mode: { mode: 'default', messageId: '' } }))}><Cancel /></button>
                                     </div>
-                                    <div className='default_input_div'>
+                                    <div className='default_input_div mode'>
                                         <input type='text' className='message_input' placeholder='Enter a message' value={message} onChange={e => setMessage(e.target.value)} />
                                         <button type='button' className='emoji_btn' onClick={() => setIsShowEmoji(true)}><Emoji /></button>
                                     </div>

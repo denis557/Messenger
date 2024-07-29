@@ -36,7 +36,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 500px;
+    /* border-radius: 500px; */
+    border-radius: 2.60416vw;
 }
 
 .default_input_div {
@@ -47,22 +48,39 @@
     align-items: center;
 }
 
+.default_input_div.mode {
+    margin-bottom: 1.078748vh;
+}
+
 .mode_div {
     width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-top: 1.6181229vh;
+}
+
+.mode_div button {
+    width: fit-content;
+    height: fit-content;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    margin-left: auto;
+    margin-right: 0.78125vw;
 }
 
 .mode_div hr {
     transform: rotate(90);
-    height: 30px;
+    /* height: 30px; */
+    height: 5.6094929vh;
     /* height: 100%; */
     width: 2px;
     background-image: linear-gradient(to bottom, #BD00FF, #C67EFF);
     border: none;
     margin-right: 0.52083vw;
+    margin-left: 1.5625vw;
 }
 
 .mode_div div {

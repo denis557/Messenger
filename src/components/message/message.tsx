@@ -4,11 +4,14 @@ import Seen from '../../assets/Seen'
 import Unseen from '../../assets/Unseen'
 import { useContextMenu } from 'react-contexify';
 import 'react-contexify/ReactContexify.css'
+import { useSelector } from 'react-redux';
 
 const MESSAGE_MENU_ID = 'message_menu_id';
 
 function Message({ message }) {
     const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
+    const { messages } = useSelector((state: RootState) => state.messages)
+    const { selectedUser } = useSelector(state => state.user);
     const { show } = useContextMenu({
         id: MESSAGE_MENU_ID
     });
@@ -22,10 +25,12 @@ function Message({ message }) {
     };
 
     const isOwnMessage = currentUser._id === message.userId;
+    const repliesMessage = message.replyTo ? messages.find(messageFind => messageFind._id === message._id) : ''
     return(
         <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
             <p className='message_text'>{message.text}</p>
             <div className='message_info_div'>
+                {message.isEdited && <p className='edited'>Edited</p>}
                 {isOwnMessage ? message.seen ? <Seen /> : <Unseen /> : ''}
                 <p className='message_time'>{changeTimeZone(message.updatedAt)}</p>
             </div>
