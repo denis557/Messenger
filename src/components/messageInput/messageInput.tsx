@@ -17,10 +17,10 @@ function MessageInput() {
     const { messages } = useSelector((state: RootState) => state.messages)
     const [message, setMessage] = useState('');
     const [isShowEmoji, setIsShowEmoji] = useState(false);
-    const { selectedUser } = useSelector(state => state.user);
-    const { searchedUser } = useSelector(state => state.searchedUser);
-    const { chats } = useSelector(state => state.chat);
-    const { mode } = useSelector(state => state.mode);
+    const { selectedUser } = useSelector((state: RootState) => state.user);
+    const { searchedUser } = useSelector((state: RootState) => state.searchedUser);
+    const { chats } = useSelector((state: RootState) => state.chat);
+    const { mode } = useSelector((state: RootState) => state.mode);
     const dispatch = useDispatch();
     const repliedOrEditedMessage = mode.messageId ? messages.find(message => message._id === mode.messageId) : ''
 

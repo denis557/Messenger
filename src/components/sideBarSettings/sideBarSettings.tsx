@@ -69,6 +69,7 @@ function SideBarSettings() {
 
             const data = await res.json()
             localStorage.removeItem('user-threads');
+            location.reload();
         } catch (error) {
             console.log(error)
         }

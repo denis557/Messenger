@@ -220,3 +220,5 @@ export { sendMessage, getMessages, getChats, getAllUsers, deleteChat, blockUser,
 //                           /_/\_____/
 //                              /\   /\
 //                             /  \ /  \
+
+// https://www.youtube.com/watch?v=MMiF5YQCSDM

@@ -52,18 +52,18 @@ function SideBarMain() {
                     <SavedMenu />
                     <p>Saved messages</p>
                 </Item>
-                <Item className='sidebar_menu_item'>
+                {/* <Item className='sidebar_menu_item'>
                     <Moon />
                     <p>Dark mode</p>
-                </Item>
+                </Item> */}
                 <Item onClick={() => dispatch(setPage({page: 'settings'}))} className='sidebar_menu_item'>
                     <Settings />
                     <p>Settings</p>
                 </Item>
-                <Item className='sidebar_menu_item'>
+                {/* <Item className='sidebar_menu_item'>
                     <Info />
                     <p>Info</p>
-                </Item>
+                </Item> */}
             </Menu>
         </>
     )
