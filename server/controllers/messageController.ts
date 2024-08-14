@@ -3,10 +3,12 @@ import { Chat } from '../models/chatModel'
 import { User } from '../models/userModel'
 import { Message } from '../models/messageModel'
 import { getRecipientSocketId } from '../socket/socket'
+import { v2 as cloudinary } from 'cloudinary'
 
 async function sendMessage(req, res) {
     try {
         const { recipientId, message, repliedMessageId } = req.body;
+        let { file } = req.body;
         const senderId = req.user._id;
 
         let chat = await Chat.findOne({
@@ -25,10 +27,16 @@ async function sendMessage(req, res) {
             await chat.save();
         }
 
+        if(file) {
+            const uploadedResponse = await cloudinary.uploader.upload(file);
+            file = uploadedResponse.secure_url;
+        }
+
         const newMessage = new Message({
             chatId: chat._id,
             userId: senderId,
             text: message,
+            file: file,
             reply: repliedMessageId
         })
 
@@ -56,13 +64,34 @@ async function sendMessage(req, res) {
 }
 
 async function editMessage(req, res) {
-    const { updatedText } = req.body;
+    const { updatedText, recipientId } = req.body;
+    const senderId = req.user._id;
     try {
         const message = await Message.findById(req.params.id);
         if(!message) res.status(400).json({ error: true, message: 'Message not found' })
+
+        let chat = await Chat.findOne({
+            members: { $all: [ senderId, recipientId ] }
+        });
         
         await message.updateOne({ text: updatedText, isEdited: true });
-        await message.save();
+        // await message.save();
+
+        await Promise.all([
+            message.save(),
+            chat.updateOne({
+                lastMessage: {
+                    text: updatedText,
+                    sender: senderId
+                }
+            })
+        ]);
+
+
+        const recipientSocketId = getRecipientSocketId(recipientId);
+        if(recipientSocketId) {
+            io.to(recipientSocketId).emit('editedMessage', message, updatedText)
+        }
 
         res.status(200).json({ error: false, message })
     } catch (error) {

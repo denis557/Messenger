@@ -45,13 +45,7 @@ function SideBarSearch() {
             </div>
             <div className='sideBar_main'>
                 {!searchInput ? 
-                    <>
-                        <div className='sideBar_newGroup'>
-                            <NewGroup />
-                            <p>New group</p>
-                        </div>
-                        <hr className='sideBar_search_hr' />
-                    </>
+                    ''
                 :
                     users.map((user: any, index: number) => {
                         const isChat = chats.find((chat: any) => chat.members.some((member: any) => member._id === user._id));
@@ -73,3 +67,11 @@ function SideBarSearch() {
 }
 
 export default SideBarSearch
+
+// <>
+// <div className='sideBar_newGroup'>
+//     <NewGroup />
+//     <p>New group</p>
+// </div>
+// <hr className='sideBar_search_hr' />
+// </>

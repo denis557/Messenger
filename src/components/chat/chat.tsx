@@ -28,6 +28,20 @@ function Chat() {
         }
     };
 
+    const editMessages = (data, newText) => {
+        const updatedMessages = messages.map(messageEl => {
+            if(messageEl._id === data._id) {
+                return {
+                    ...messageEl,
+                    text: newText,
+                    isEdited: true
+                }
+            }
+            return messageEl
+        });
+        return updatedMessages;
+    }
+
     const updateChats = (data) => {
         const updatedChats = chats.map(chat => {
             if (chat._id === data.chatId) {
@@ -46,6 +60,22 @@ function Chat() {
         });
         return updatedChats;
     };
+
+    const editChats = (data, newMessageText) => {
+        const updateChats = chats.map(chat => {
+            if(chat._id === data.chatId) {
+                return {
+                    ...chat,
+                    lastMessage: {
+                        ...chat.lastMessage,
+                        text: newMessageText,
+                    }
+                }
+            }
+            return chat
+        })
+        return updateChats
+    }
 
     const resetUnreadCount = () => {
         const updatedChats = chats.map(chat => {
@@ -171,6 +201,19 @@ function Chat() {
         })
 
         return () => socket.off('newMessage');
+    }, [socket, chats, selectedUser, dispatch]);
+
+    useEffect(() => {
+        socket.on('editedMessage', (newMessage, editedMessageText) => {
+            dispatch(setChats(editChats(newMessage, editedMessageText)))
+            if(selectedUser.userId === newMessage.userId) {
+                dispatch(setMessages(editMessages(newMessage, editedMessageText)));
+            }
+
+            dispatch(sortChats());
+        })
+
+        return () => socket.off('editedMessage');
     }, [socket, chats, selectedUser, dispatch]);
 
     useEffect(() => {

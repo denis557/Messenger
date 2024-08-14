@@ -25,19 +25,19 @@ function Message({ message }) {
     };
 
     const isOwnMessage = currentUser._id === message.userId;
-    const repliedMessage = message.reply ? messages.find(messageFind => messageFind._id === message._id) : ''
+    const repliedMessage = message.reply ? messages.find(messageEl => messageEl._id === message.reply) : ''
     return(
-        // <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
         <>
             {message.reply ? 
                 <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
                     <div className='message_reply'>
                         <hr />
                         <div>
-                            <p className='mode_title'>{currentUser._id === repliedMessage.userId ? "You" : selectedUser.username}</p>
-                            <p className='mode_text'>{repliedMessage.text}</p>
+                            <p className='mode_title'>{repliedMessage ? currentUser._id === repliedMessage.userId ? "You" : selectedUser.username : 'Deleted'}</p>
+                            <p className='mode_text'>{repliedMessage ? repliedMessage.text : "Deleted"}</p>
                         </div>
                     </div>
+                    {message.file && <img src={message.file} className='messsage_img' />}
                     <div className='message_wraper'>
                         <p className='message_text'>{message.text}</p>
                         <div className='message_info_div'>
@@ -49,6 +49,7 @@ function Message({ message }) {
                 </div>
             :
                 <div className={`message ${isOwnMessage && 'own'}`} onContextMenu={displayMenu}>
+                    {message.file && <img src={message.file} className='messsage_img' />}
                     <div className='message_wraper'>
                         <p className='message_text'>{message.text}</p>
                         <div className='message_info_div'>

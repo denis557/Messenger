@@ -118,3 +118,10 @@
     margin-bottom: 70px;
     left: 60%;
 }
+
+.message_input_img {
+    /* width: 20px;
+    height: 20px; */
+    max-width: 90px;
+    max-height: 50px;
+}

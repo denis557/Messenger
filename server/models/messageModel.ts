@@ -7,7 +7,8 @@ const messageSchema = new mongoose.Schema(
         text: String,
         reply: { type: mongoose.Schema.Types.ObjectId, ref: 'Message' },
         seen: { type: Boolean, default: false },
-        idEdited: { type: Boolean, default: false }
+        isEdited: { type: Boolean, default: false },
+        file: { type: String, default: '' }
     },
     { timestamps: true }
 );

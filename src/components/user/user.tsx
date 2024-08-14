@@ -13,6 +13,7 @@ function User({ chat }) {
   const { socket, onlineUsers } = useSocket();
   const { selectedUser } = useSelector(state => state.user);
   const dispatch = useDispatch();
+  // console.log(chat)
 
   return (
     <div className={`user ${selectedUser._id === chat._id && 'active'}`} onClick={() => {
