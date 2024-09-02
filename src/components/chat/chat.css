@@ -1,7 +1,8 @@
 .chat {
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(to bottom right, #2E2030, #8000FF);
+    /* background-image: linear-gradient(to bottom right, #2E2030, #8000FF); */
+    background-image: linear-gradient(to bottom right, #B06B99, #AD00FF);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -10,7 +11,8 @@
 
 .chat_section {
     width: 40.10416vw;
-    height: 89%;
+    /* height: 89%; */
+    height: 92%;
     display: flex;
     flex-direction: column-reverse;
     margin-bottom: 30px;
@@ -18,7 +20,8 @@
 
 .message_section {
     width: 100%;
-    max-height: 78vh;
+    /* max-height: 78vh; */
+    max-height: 83.1vh;
     overflow-y:scroll;
     display: flex;
     flex-direction: column;

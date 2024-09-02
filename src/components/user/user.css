@@ -1,7 +1,9 @@
 .user {
-  width: 94.4%;
-  height: 7.0299vh;
-  padding: 0.8vh 2.6%;
+  width: 94.1%;
+  /* height: 7.0299vh; */
+  height: fit-content;
+  /* padding: 0.8vh 2.6%; */
+  padding: 0.54vh 0.52vw;
   border-radius: 0.52083vw;
   display: flex;
   flex-direction: row;
@@ -35,19 +37,24 @@
 }
 
 .sideBar_user_noavatar {
-  width: 3.385416vw;
-  height: 3.385416vw;
+  /* width: 3.385416vw;
+  height: 3.385416vw; */
+  width: 2.86vw;
+  height: 2.86vw;
   border-radius: 500px;
   background-image: linear-gradient(to bottom left, #FF3535, #FF9393);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.0833vw;
+  /* font-size: 2.0833vw; */
+  font-size: 1.6vw;
 }
 
 .sideBar_user_avatar {
-  width: 3.385416vw;
-  height: 3.385416vw;
+  /* width: 3.385416vw;
+  height: 3.385416vw; */
+  width: 2.86vw;
+  height: 2.86vw;
   border-radius: 500px;
   object-fit: cover;
 }
@@ -58,11 +65,13 @@
 }
 
 .user_name {
-  font-size: 1.4583vw;
+  /* font-size: 1.4583vw; */
+  font-size: 1.19vw;
 }
 
 .user_lastMessage {
-  font-size: 1.0416vw;
+  /* font-size: 1.0416vw; */
+  font-size: 0.83vw;
   max-width: 11vw;
   /* max-width: 180px; */
   text-overflow: ellipsis;
@@ -88,19 +97,23 @@
 .unread_count {
   align-self: flex-end;
   margin-top: auto;
-  width: 1.5625vw;
-  height: 1.5625vw;
+  /* width: 1.5625vw;
+  height: 1.5625vw; */
+  width: 1.3vw;
+  height: 1.3vw;
   background-color: #fff;
   border-radius: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.833vw;
+  /* font-size: 0.833vw; */
+  font-size: 0.67vw;
   color: #5E00D6;
 }
 
 .user_lastMessage_time {
-  font-size: 0.9375vw;
+  /* font-size: 0.9375vw; */
+  font-size: 0.78125vw;
 }
 
 .online {

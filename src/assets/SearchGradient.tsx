@@ -1,18 +1,18 @@
 export const SearchGradient = () => {
     return (
-        <svg style={{ width: '2.0833vw', height: '2.0833vw' }} width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clipPath="url(#clip0_28_34)">
-            <path d="M33.7209 33.7209L24.4782 24.4783M24.4782 24.4783C26.9798 21.9768 28.3851 18.584 28.3851 15.0463C28.3851 11.5086 26.9798 8.11575 24.4782 5.61421C21.9767 3.11268 18.5839 1.70734 15.0462 1.70734C11.5085 1.70734 8.11569 3.11268 5.61415 5.61421C3.11262 8.11575 1.70728 11.5086 1.70728 15.0463C1.70728 18.584 3.11262 21.9768 5.61415 24.4783C8.11569 26.9798 11.5085 28.3852 15.0462 28.3852C18.5839 28.3852 21.9767 26.9798 24.4782 24.4783Z" stroke="url(#paint0_linear_28_34)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </g>
-            <defs>
-            <linearGradient id="paint0_linear_28_34" x1="2" y1="2" x2="34" y2="34" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#5E00D6"/>
-            <stop offset="1" stopColor="#BD00FF"/>
-            </linearGradient>
-            <clipPath id="clip0_28_34">
-            <rect width="35" height="35" fill="white"/>
-            </clipPath>
-            </defs>
+        <svg style={{ width: '1.5vw', height: '1.5vw' }} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_378_12)">
+        <path d="M23.1229 23.1229L16.7851 16.7851M16.7851 16.7851C18.5004 15.0698 19.4641 12.7433 19.4641 10.3174C19.4641 7.89156 18.5004 5.56507 16.7851 3.84973C15.0698 2.1344 12.7433 1.17073 10.3174 1.17073C7.89156 1.17073 5.56507 2.1344 3.84973 3.84973C2.1344 5.56507 1.17073 7.89156 1.17073 10.3174C1.17073 12.7433 2.1344 15.0698 3.84973 16.7851C5.56507 18.5004 7.89156 19.4641 10.3174 19.4641C12.7433 19.4641 15.0698 18.5004 16.7851 16.7851Z" stroke="url(#paint0_linear_378_12)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <defs>
+        <linearGradient id="paint0_linear_378_12" x1="1.37146" y1="1.37141" x2="23.3143" y2="23.3143" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#5E00D6"/>
+        <stop offset="1" stop-color="#BD00FF"/>
+        </linearGradient>
+        <clipPath id="clip0_378_12">
+        <rect width="24" height="24" fill="white"/>
+        </clipPath>
+        </defs>
         </svg>
     )
 }

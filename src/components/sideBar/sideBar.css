@@ -1,7 +1,11 @@
 .sideBar {
-    width: 19.687168vw;
-    height: 97.6268vh;
-    padding: 1.1866vh 0.572916vw;
+    /* width: 19.687168vw; */
+    /* width: 16vw; */
+    width: 17.7vw;
+    /* height: 97.6268vh; */
+    height: 97.5;
+    /* padding: 1.1866vh 0.572916vw; */
+    padding: 0 0.572916vw 1.1866vh 0.572916vw;
     background-color: #3F3F3F;
     display: flex;
     flex-direction: column;

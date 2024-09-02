@@ -2,17 +2,24 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    height: 5.39vh;
+    align-items: center;
 }
 
 .menu_btn {
-    margin: 1.29449vh 0.8vw 0;
+    /* margin: 1.29449vh 0.8vw 0; */
+    margin: 0.8vh 0.8vw 0;
     border: none;
     background-color: transparent;
 }
 
 .sideBar_search {
-    width: 12vw;
-    height: 5.3937vh;
+    /* width: 12vw; */
+    /* width: 11vw; */
+    width: 100%;
+    /* width: 13vw; */
+    /* height: 5.3937vh; */
+    height: 3.88vh;
     padding: 0 0.52083vw 0 3.125vw;
     border-radius: 100px;
     border: 1px solid #CACACA;
@@ -20,8 +27,9 @@
     outline: none;
     font-size: 1.25vw;
     color: white;
-    background-image: url('../../assets/Search.svg');
-    background-size: 1.822916vw 1.822916vw;
+    background-image: url('../../assets/SearchDa.svg');
+    /* background-size: 1.822916vw 1.822916vw; */
+    background-size: 1.25vw 1.25vw;
     background-repeat: no-repeat;
     background-position: 10px;
 }
@@ -43,8 +51,6 @@
     box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 25%);
     backdrop-filter: blur(4px);
 }
-
-
 
 .contexify.sidebar_menu {
     width: 10.9375vw;

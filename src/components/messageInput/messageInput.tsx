@@ -12,6 +12,7 @@ import { setSearchedUser } from '../searchedUser/searchedUserSlice';
 import { setMessages } from '../message/messagesSlice';
 import { setMode } from './modeSlice'
 import usePreviewImg from '../../helpers/usePreviewImg'
+import { RootState } from '../../App/store'
 
 function MessageInput() {
     const currentUser = JSON.parse(localStorage.getItem("user-threads")!);
@@ -88,7 +89,7 @@ function MessageInput() {
                     message: message,
                     recipientId: selectedUser.userId || searchedUser.searchedUser?._id,
                     file: imgUrl,
-                    repliedMessageId: mode.messageId
+                    repliedMessageId: mode.messageId || ''
                 })
             });
             const data = await res.json();

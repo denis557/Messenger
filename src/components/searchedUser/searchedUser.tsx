@@ -6,7 +6,6 @@ import { setSearchedUser } from "./searchedUserSlice";
 function SearchedUser({ user }) {
     const dispatch = useDispatch();
     const { searchedUser } = useSelector(state => state.searchedUser);
-    const { selectedUser } = useSelector(state => state.user);
 
     return (
         <div className={`user ${searchedUser.searchedUser?._id === user._id ? 'active' : ''}`} onClick={() => {

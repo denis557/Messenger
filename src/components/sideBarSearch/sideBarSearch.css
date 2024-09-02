@@ -7,10 +7,13 @@
 
 .sideBarSearch_search {
     /* width: 12vw; */
-    width: 14.60417vw;
-    height: 5.3937vh;
+    /* width: 14.60417vw; */
+    width: 100%;
+    /* height: 5.3937vh; */
+    height: 3.88vh;
     /* padding: 0 0.52083vw 0 3.125vw; */
-    padding: 0 0.52083vw;
+    /* padding: 0 0.52083vw; */
+    padding: 0 10px;
     background-color: transparent;
     border-radius: 100px;
     background: linear-gradient(#3F3F3F, #3F3F3F) padding-box,
